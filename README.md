@@ -6,6 +6,7 @@ API do modo admin da plataforma **A Força**.
    - [Instações e configurações](#instalaes-e-configuraes)
       - [Java](#java)
       - [Docker e Docker Compose](#docker-e-docker-compose)
+2. [Execução da aplicação](#execuo-da-aplicao)
 
 ## Tecnologias requisitas
   - Java 11
