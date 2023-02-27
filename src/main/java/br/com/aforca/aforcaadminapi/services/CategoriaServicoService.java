@@ -12,15 +12,15 @@ import java.util.List;
 public class CategoriaServicoService {
     private final CategoriaServicoRepository categoriaServicoRepository;
 
-    public void saveCategoriaServico(CategoriaServico categoriaServico) {
-        categoriaServicoRepository.save(categoriaServico);
+    public CategoriaServico save(CategoriaServico categoriaServico) {
+        return categoriaServicoRepository.save(categoriaServico);
     }
 
-    public List<CategoriaServico> getAllCategoriaServico() {
+    public List<CategoriaServico> getAll() {
         return categoriaServicoRepository.findAll();
     }
 
-    public void deteleCategoriaServico(CategoriaServico categoriaServico) {
+    public void detele(CategoriaServico categoriaServico) {
         categoriaServicoRepository.delete(categoriaServico);
     }
 }
