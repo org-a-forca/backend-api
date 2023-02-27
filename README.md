@@ -7,6 +7,7 @@ API do modo admin da plataforma **A Força**.
       - [Java](#java)
       - [Docker e Docker Compose](#docker-e-docker-compose)
 2. [Execução da aplicação](#execuo-da-aplicao)
+3. [Execução da aplicação sem Docker](#execuo-da-aplicao-sem-docker)
 
 ## Tecnologias requisitas
   - Java 11
@@ -93,4 +94,25 @@ CONTAINER ID   IMAGE                         COMMAND                  CREATED   
 Para desligar o container, na pasta raiz:
 ```shell
 docker compose down
+```
+
+## Execução da aplicação sem Docker
+1. No arquivo `application.properties`, adicione as seguintes propriedades, que são as mesmas do `docker-compose.yml`:
+```properties
+spring.datasource.driverClassName=org.postgresql.Driver
+spring.datasource.platform=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+2. Suba um container com a imagem do PostgreSQL
+```shell
+docker run --name postgres-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+```
+
+3. Para parar o container:
+```shell
+docker stop -t 60 <containerId>
 ```
