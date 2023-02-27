@@ -1,28 +1,38 @@
 package br.com.aforca.aforcaadminapi.controllers;
 
+import br.com.aforca.aforcaadminapi.dtos.CategoriaServicoDto;
 import br.com.aforca.aforcaadminapi.models.CategoriaServico;
 import br.com.aforca.aforcaadminapi.services.CategoriaServicoService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/categoriaservico")
 @AllArgsConstructor
 public class CategoriaServicoController {
     private final CategoriaServicoService categoriaServicoService;
 
-    @PostMapping("/categoriaservico")
-    public ResponseEntity<CategoriaServico> createCategoriaServico(@RequestBody CategoriaServico categoriaServico) {
-        categoriaServicoService.saveCategoriaServico(categoriaServico);
-        return new ResponseEntity<>(categoriaServico, HttpStatus.CREATED);
+    @PostMapping()
+    public ResponseEntity<CategoriaServicoDto> createCategoriaServico(@Valid @RequestBody CategoriaServicoDto categoriaServicoDto) {
+        var categoriaServico = new CategoriaServico();
+        categoriaServico.setNome(categoriaServicoDto.getNome());
+
+        var savedCategoriaServico = categoriaServicoService.save(categoriaServico);
+
+        var categoriaServicoResponse = new CategoriaServicoDto();
+        categoriaServicoResponse.setId(savedCategoriaServico.getId());
+        categoriaServicoResponse.setNome(savedCategoriaServico.getNome());
+
+        return new ResponseEntity<>(categoriaServicoResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/categoriaservico")
+    @GetMapping()
     public ResponseEntity<List<CategoriaServico>> getAllCategoriaServico() {
-        return new ResponseEntity<>(categoriaServicoService.getAllCategoriaServico(), HttpStatus.OK);
+        return new ResponseEntity<>(categoriaServicoService.getAll(), HttpStatus.OK);
     }
 }
