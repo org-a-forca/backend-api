@@ -18,7 +18,7 @@ public class CategoriaServicoController {
     private final CategoriaServicoService categoriaServicoService;
 
     @PostMapping()
-    public ResponseEntity<CategoriaServicoDto> createCategoriaServico(@Valid @RequestBody CategoriaServicoDto categoriaServicoDto) {
+    public ResponseEntity<CategoriaServicoDto> create(@Valid @RequestBody CategoriaServicoDto categoriaServicoDto) {
         var categoriaServico = new CategoriaServico();
         categoriaServico.setNome(categoriaServicoDto.getNome());
 
@@ -32,7 +32,7 @@ public class CategoriaServicoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<CategoriaServico>> getAllCategoriaServico() {
+    public ResponseEntity<List<CategoriaServico>> getAll() {
         return new ResponseEntity<>(categoriaServicoService.getAll(), HttpStatus.OK);
     }
 }
