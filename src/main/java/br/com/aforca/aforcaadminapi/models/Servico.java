@@ -1,6 +1,5 @@
 package br.com.aforca.aforcaadminapi.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +22,8 @@ public class Servico {
   private String nome;
 
   @OneToOne
-  @JoinColumn(name = "categoria_servico_id")
+  @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
   @Getter
   @Setter
-  private CategoriaServico categoriaServico;
+  private Categoria categoria;
 }
