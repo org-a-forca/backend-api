@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -17,22 +19,30 @@ import java.util.List;
 public class CategoriaController {
     private final CategoriaService categoriaService;
 
-    @PostMapping()
-    public ResponseEntity<CategoriaDto> create(@Valid @RequestBody CategoriaDto categoriaDto) {
-        var categoriaServico = new Categoria();
-        categoriaServico.setNome(categoriaDto.getNome());
-
-        var savedCategoriaServico = categoriaService.save(categoriaServico);
-
-        var categoriaServicoResponse = new CategoriaDto();
-        categoriaServicoResponse.setId(savedCategoriaServico.getId());
-        categoriaServicoResponse.setNome(savedCategoriaServico.getNome());
-
-        return new ResponseEntity<>(categoriaServicoResponse, HttpStatus.CREATED);
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public CategoriaDto create(@RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
+        return categoriaService.create(categoriaDto);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Categoria>> getAll() {
-        return new ResponseEntity<>(categoriaService.getAll(), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public CategoriaDto getById(@PathVariable @NotNull @Positive Long id) {
+        return categoriaService.getById(id);
+    }
+
+    @GetMapping
+    public @ResponseBody List<CategoriaDto> getAll() {
+        return categoriaService.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public CategoriaDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
+        return categoriaService.update(id, categoriaDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull @Positive Long id) {
+        categoriaService.detele(id);
     }
 }
