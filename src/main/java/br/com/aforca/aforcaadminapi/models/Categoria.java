@@ -7,8 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categoria_servico")
-public class CategoriaServico {
+@Table(name = "categoria")
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Getter
