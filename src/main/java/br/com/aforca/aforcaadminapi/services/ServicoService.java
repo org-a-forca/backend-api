@@ -4,6 +4,8 @@ import br.com.aforca.aforcaadminapi.dtos.ServicoDto;
 import br.com.aforca.aforcaadminapi.dtos.mappers.ServicoMapper;
 import br.com.aforca.aforcaadminapi.repositories.ServicoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +30,8 @@ public class ServicoService {
     return servicoRepository.findById(id).map(servicoMapper::toDTO).orElseThrow();
   }
 
-  public List<ServicoDto> getAll() {
-    return servicoRepository.findAll().stream().map(servicoMapper::toDTO).collect(Collectors.toList());
+  public List<ServicoDto> getAll(Integer pagNum, Integer pagTam) {
+    return servicoRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toDTO).collect(Collectors.toList());
   }
 
   public ServicoDto update(@NotNull @Positive Long id, @Valid @NotNull ServicoDto servicoDto) {
@@ -45,7 +47,7 @@ public class ServicoService {
     servicoRepository.delete(servicoRepository.findById(id).orElseThrow());
   }
 
-  public List<ServicoDto> getAllByNome(String nome) {
-    return servicoRepository.findAllByNome(nome).stream().map(servicoMapper::toDTO).collect(Collectors.toList());
+  public List<ServicoDto> getAllByNome(Integer pagNum, Integer pagTam, String nome) {
+    return servicoRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toDTO).collect(Collectors.toList());
   }
 }

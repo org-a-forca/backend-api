@@ -29,8 +29,8 @@ public class ServicoController {
   }
 
   @GetMapping
-  public @ResponseBody List<ServicoDto> getAll() {
-    return servicoService.getAll();
+  public @ResponseBody List<ServicoDto> getAll(@RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
+    return servicoService.getAll(pagNum, pagTam);
   }
 
   @PutMapping("/{id}")
@@ -45,7 +45,7 @@ public class ServicoController {
   }
 
   @GetMapping("/busca")
-  public @ResponseBody List<ServicoDto> getAllByNome(@RequestParam(required = true) @NotNull String nome) {
-    return servicoService.getAllByNome(nome);
+  public @ResponseBody List<ServicoDto> getAllByNome(@RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam, @RequestParam(required = true) @NotNull String nome) {
+    return servicoService.getAllByNome(pagNum, pagTam, nome);
   }
 }
