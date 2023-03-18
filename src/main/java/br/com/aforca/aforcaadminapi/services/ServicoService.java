@@ -6,6 +6,7 @@ import br.com.aforca.aforcaadminapi.repositories.ServicoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -42,5 +43,9 @@ public class ServicoService {
 
   public void delete(@PathVariable @NotNull @Positive Long id) {
     servicoRepository.delete(servicoRepository.findById(id).orElseThrow());
+  }
+
+  public List<ServicoDto> getAllByNome(String nome) {
+    return servicoRepository.findAllByNome(nome).stream().map(servicoMapper::toDTO).collect(Collectors.toList());
   }
 }

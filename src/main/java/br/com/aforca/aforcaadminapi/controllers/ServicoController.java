@@ -43,4 +43,9 @@ public class ServicoController {
   public void delete(@PathVariable @NotNull @Positive Long id) {
     servicoService.delete(id);
   }
+
+  @GetMapping("/busca")
+  public @ResponseBody List<ServicoDto> getAllByNome(@RequestParam(required = true) @NotNull String nome) {
+    return servicoService.getAllByNome(nome);
+  }
 }
