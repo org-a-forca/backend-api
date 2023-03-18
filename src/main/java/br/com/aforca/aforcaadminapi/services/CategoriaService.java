@@ -2,7 +2,6 @@ package br.com.aforca.aforcaadminapi.services;
 
 import br.com.aforca.aforcaadminapi.dtos.CategoriaDto;
 import br.com.aforca.aforcaadminapi.dtos.mappers.CategoriaMapper;
-import br.com.aforca.aforcaadminapi.models.Categoria;
 import br.com.aforca.aforcaadminapi.repositories.CategoriaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

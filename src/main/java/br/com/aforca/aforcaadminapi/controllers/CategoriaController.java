@@ -1,11 +1,9 @@
 package br.com.aforca.aforcaadminapi.controllers;
 
 import br.com.aforca.aforcaadminapi.dtos.CategoriaDto;
-import br.com.aforca.aforcaadminapi.models.Categoria;
 import br.com.aforca.aforcaadminapi.services.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
