@@ -1,4 +1,4 @@
-package br.com.aforca.aforcaadminapi;
+package br.com.aforca.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

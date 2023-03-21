@@ -1,4 +1,4 @@
-package br.com.aforca.aforcaadminapi.models;
+package br.com.aforca.admin.domain.entity;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
