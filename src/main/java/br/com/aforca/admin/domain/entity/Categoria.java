@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "categoria")
 public class Categoria {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Long id;
