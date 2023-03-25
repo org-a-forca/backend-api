@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "servico")
 public class Servico {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   private Long id;
