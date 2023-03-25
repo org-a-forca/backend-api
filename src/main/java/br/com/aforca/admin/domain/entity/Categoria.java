@@ -16,7 +16,7 @@ public class Categoria {
     private Long id;
 
     @NotNull
-    @Column(name = "nome", length = 50, nullable = false)
+    @Column(name = "nome", length = 50, nullable = false, unique = true)
     @Getter
     @Setter
     private String nome;
