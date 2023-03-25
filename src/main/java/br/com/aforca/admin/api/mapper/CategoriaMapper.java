@@ -1,7 +1,8 @@
-package br.com.aforca.aforcaadminapi.dtos.mappers;
+package br.com.aforca.admin.api.mapper;
 
-import br.com.aforca.aforcaadminapi.dtos.CategoriaDto;
-import br.com.aforca.aforcaadminapi.models.Categoria;
+import br.com.aforca.admin.api.model.CategoriaDto;
+import br.com.aforca.admin.domain.entity.Categoria;
+
 import org.springframework.stereotype.Component;
 
 @Component

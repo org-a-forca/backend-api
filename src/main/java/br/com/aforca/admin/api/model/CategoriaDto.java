@@ -1,4 +1,4 @@
-package br.com.aforca.aforcaadminapi.dtos;
+package br.com.aforca.admin.api.model;
 
 import lombok.Data;
 

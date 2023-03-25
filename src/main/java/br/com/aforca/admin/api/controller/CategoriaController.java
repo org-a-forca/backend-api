@@ -1,7 +1,7 @@
-package br.com.aforca.aforcaadminapi.controllers;
+package br.com.aforca.admin.api.controller;
 
-import br.com.aforca.aforcaadminapi.dtos.CategoriaDto;
-import br.com.aforca.aforcaadminapi.services.CategoriaService;
+import br.com.aforca.admin.api.model.CategoriaDto;
+import br.com.aforca.admin.domain.service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,14 +1,12 @@
-package br.com.aforca.aforcaadminapi.services;
+package br.com.aforca.admin.domain.service;
 
-import br.com.aforca.aforcaadminapi.dtos.ServicoDto;
-import br.com.aforca.aforcaadminapi.dtos.mappers.ServicoMapper;
-import br.com.aforca.aforcaadminapi.repositories.ServicoRepository;
+import br.com.aforca.admin.api.mapper.ServicoMapper;
+import br.com.aforca.admin.api.model.ServicoDto;
+import br.com.aforca.admin.domain.repository.ServicoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

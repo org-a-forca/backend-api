@@ -1,9 +1,10 @@
-package br.com.aforca.aforcaadminapi.repositories;
+package br.com.aforca.admin.domain.repository;
 
-import br.com.aforca.aforcaadminapi.models.Servico;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import br.com.aforca.admin.domain.entity.Servico;
 
 import java.util.List;
 
