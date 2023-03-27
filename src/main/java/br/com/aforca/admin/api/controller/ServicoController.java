@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
+import br.com.aforca.admin.api.model.NovoServicoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.service.ServicoService;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ public class ServicoController {
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  public ServicoDto create(@RequestBody @Valid @NotNull ServicoDto servicoDto) {
-    return servicoService.create(servicoDto);
+  public ServicoDto create(@RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
+    return servicoService.create(novoServicoDto);
   }
 
   @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package br.com.aforca.admin.domain.service;
 
 import br.com.aforca.admin.api.mapper.ServicoMapper;
+import br.com.aforca.admin.api.model.NovoServicoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.repository.ServicoRepository;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class ServicoService {
   private final ServicoRepository servicoRepository;
   private final ServicoMapper servicoMapper;
 
-  public ServicoDto create(@Valid @NotNull ServicoDto servicoDto) {
-    return servicoMapper.toDTO(servicoRepository.save(servicoMapper.toEntity(servicoDto)));
+  public ServicoDto create(@Valid @NotNull NovoServicoDto novoServicoDto) {
+    return servicoMapper.toDTO(servicoRepository.save(servicoMapper.toEntity(novoServicoDto)));
   }
 
   public ServicoDto getById(@PathVariable @NotNull @Positive Long id) {
