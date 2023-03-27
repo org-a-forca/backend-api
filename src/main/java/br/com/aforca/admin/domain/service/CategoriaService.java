@@ -2,6 +2,7 @@ package br.com.aforca.admin.domain.service;
 
 import br.com.aforca.admin.api.mapper.CategoriaMapper;
 import br.com.aforca.admin.api.model.CategoriaDto;
+import br.com.aforca.admin.api.model.NovaCategoriaDto;
 import br.com.aforca.admin.domain.repository.CategoriaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
 
-    public CategoriaDto create(@Valid @NotNull CategoriaDto categoriaDto) {
-        return categoriaMapper.toDTO(categoriaRepository.save(categoriaMapper.toEntity(categoriaDto)));
+    public CategoriaDto create(@Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
+        return categoriaMapper.toDTO(categoriaRepository.save(categoriaMapper.toEntity(novaCategoriaDto)));
     }
 
     public CategoriaDto getById(@PathVariable @NotNull @Positive Long id) {

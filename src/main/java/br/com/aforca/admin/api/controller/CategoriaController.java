@@ -1,15 +1,19 @@
 package br.com.aforca.admin.api.controller;
 
 import br.com.aforca.admin.api.model.CategoriaDto;
+import br.com.aforca.admin.api.model.NovaCategoriaDto;
 import br.com.aforca.admin.domain.service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/categoria")
@@ -19,8 +23,8 @@ public class CategoriaController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public CategoriaDto create(@RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
-        return categoriaService.create(categoriaDto);
+    public CategoriaDto create(@RequestBody @Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
+        return categoriaService.create(novaCategoriaDto);
     }
 
     @GetMapping("/{id}")
