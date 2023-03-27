@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.exceptionhandler;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     bodyOfResponse.put("mensagem", "Registro não encontrado");
 
     return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public ResponseEntity<Object> handleDataIntegrityViolationException() {
+    Map<String, Object> bodyOfResponse = new HashMap<>();
+    bodyOfResponse.put("mensagem", "Não é possível excluir o registro porque está sendo utilizado por outro");
+
+    return new ResponseEntity<>(bodyOfResponse, HttpStatus.CONFLICT);
   }
 
   @ExceptionHandler(value = { RuntimeException.class })
