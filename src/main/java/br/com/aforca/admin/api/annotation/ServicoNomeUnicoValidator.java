@@ -15,6 +15,6 @@ public class ServicoNomeUnicoValidator implements ConstraintValidator<ServicoNom
 
   @Override
   public boolean isValid(String nome, ConstraintValidatorContext context) {
-    return servicoRepository.findByNome(nome) == null ? true : false;
+    return servicoRepository.findByNome(nome) == null;
   }
 }

@@ -15,6 +15,6 @@ public class CategoriaNomeUnicoValidator implements ConstraintValidator<Categori
 
   @Override
   public boolean isValid(String nome, ConstraintValidatorContext context) {
-    return categoriaRepository.findByNome(nome) == null ? true : false;
+    return categoriaRepository.findByNome(nome) == null;
   }
 }
