@@ -39,9 +39,7 @@ public class ServicoController {
     Map<String, Object> corpoDaResposta = new HashMap<>();
 
     if (servicos.isEmpty()) {
-      corpoDaResposta.put("mensagem", "Nenhum serviço encontrado");
-
-      return new ResponseEntity<>(corpoDaResposta, HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(servicos, HttpStatus.OK);
     } else {
       Long qtdeTotalServicos = servicoService.getAllQuantidade(nome);
 
