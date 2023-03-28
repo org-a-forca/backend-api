@@ -6,12 +6,15 @@ import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.service.ServicoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/servico")
@@ -31,23 +34,34 @@ public class ServicoController {
   }
 
   @GetMapping
-  public @ResponseBody List<ServicoAsElementDto> getAll(@RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
-    return servicoService.getAll(pagNum, pagTam);
+  public ResponseEntity<Object> getAll(@RequestParam(required = false) String nome, @RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
+    List<ServicoAsElementDto> servicos = servicoService.getAll(nome, pagNum, pagTam);
+    Map<String, Object> corpoDaResposta = new HashMap<>();
+
+    if (servicos.isEmpty()) {
+      corpoDaResposta.put("mensagem", "Nenhum serviço encontrado");
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.NOT_FOUND);
+    } else {
+      Long qtdeTotalServicos = servicoService.getAllQuantidade(nome);
+
+      corpoDaResposta.put("servicos", servicos);
+      corpoDaResposta.put("qtdeServicos", qtdeTotalServicos);
+      corpoDaResposta.put("pagNum", pagNum);
+      corpoDaResposta.put("pagTam", pagTam);
+
+      return ResponseEntity.ok(corpoDaResposta);
+    }
   }
 
-  /*@PutMapping("/{id}")
+  @PutMapping("/{id}")
   public ServicoDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull ServicoDto servicoDto) {
     return servicoService.update(id, servicoDto);
-  }*/
+  }
 
   @DeleteMapping("/{id}")
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
   public void delete(@PathVariable @NotNull @Positive Long id) {
     servicoService.delete(id);
-  }
-
-  @GetMapping("/busca")
-  public @ResponseBody List<ServicoDto> getAllByNome(@RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam, @RequestParam(required = true) @NotNull String nome) {
-    return servicoService.getAllByNome(pagNum, pagTam, nome);
   }
 }
