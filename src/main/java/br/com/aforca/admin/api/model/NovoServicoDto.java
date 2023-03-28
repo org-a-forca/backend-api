@@ -15,7 +15,6 @@ public class NovoServicoDto {
   @ServicoNomeUnico
   private String nome;
 
-  @JsonProperty("categoria_id")
   @CategoriaExistente
   private Long categoriaId;
 }
