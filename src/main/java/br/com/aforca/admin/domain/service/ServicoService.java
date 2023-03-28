@@ -4,6 +4,7 @@ import br.com.aforca.admin.api.mapper.ServicoMapper;
 import br.com.aforca.admin.api.model.NovoServicoDto;
 import br.com.aforca.admin.api.model.ServicoAsElementDto;
 import br.com.aforca.admin.api.model.ServicoDto;
+import br.com.aforca.admin.domain.repository.CategoriaRepository;
 import br.com.aforca.admin.domain.repository.ServicoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -14,13 +15,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ServicoService {
   private final ServicoRepository servicoRepository;
+  private final CategoriaRepository categoriaRepository;
   private final ServicoMapper servicoMapper;
 
   public ServicoDto create(@Valid @NotNull NovoServicoDto novoServicoDto) {
@@ -45,11 +46,11 @@ public class ServicoService {
       return servicoRepository.count();
   }
 
-  public ServicoDto update(@NotNull @Positive Long id, @Valid @NotNull ServicoDto servicoDto) {
+  public ServicoDto update(@NotNull @Positive Long id, @Valid @NotNull NovoServicoDto novoServicoDto) {
     return servicoRepository.findById(id)
         .map(servicoFound -> {
-          servicoFound.setNome(servicoDto.getNome());
-          servicoFound.setCategoria(servicoDto.getCategoria());
+          servicoFound.setNome(novoServicoDto.getNome());
+          servicoFound.setCategoria(categoriaRepository.findById(novoServicoDto.getCategoriaId()).get());
           return servicoMapper.toDTO(servicoRepository.save(servicoFound));
         }).orElseThrow();
   }

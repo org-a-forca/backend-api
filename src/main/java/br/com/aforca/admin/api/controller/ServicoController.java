@@ -55,8 +55,8 @@ public class ServicoController {
   }
 
   @PutMapping("/{id}")
-  public ServicoDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull ServicoDto servicoDto) {
-    return servicoService.update(id, servicoDto);
+  public ServicoDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
+    return servicoService.update(id, novoServicoDto);
   }
 
   @DeleteMapping("/{id}")
