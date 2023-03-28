@@ -23,9 +23,13 @@ public class ServicoService {
   private final ServicoRepository servicoRepository;
   private final CategoriaRepository categoriaRepository;
   private final ServicoMapper servicoMapper;
+  private final CategoriaService categoriaService;
 
   public ServicoDto create(@Valid @NotNull NovoServicoDto novoServicoDto) {
-    return servicoMapper.toDTO(servicoRepository.save(servicoMapper.toEntity(novoServicoDto)));
+    var servicodto = servicoMapper.toDTO(servicoRepository.save(servicoMapper.toEntity(novoServicoDto)));
+    servicodto.setCategoria(categoriaService.getById(novoServicoDto.getCategoriaId()));
+
+    return servicodto;
   }
 
   public ServicoDto getById(@PathVariable @NotNull @Positive Long id) {
