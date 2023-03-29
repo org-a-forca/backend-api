@@ -1,6 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
-import br.com.aforca.admin.api.exception.NomeCategoriaJaRegistradoException;
+import br.com.aforca.admin.api.exception.NomeJaRegistradoException;
 import br.com.aforca.admin.api.model.CategoriaDto;
 import br.com.aforca.admin.api.model.NovaCategoriaDto;
 import br.com.aforca.admin.domain.service.CategoriaService;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -25,11 +24,10 @@ public class CategoriaController {
     private final CategoriaService categoriaService;
 
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Object> create(@RequestBody @Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
         try {
             return new ResponseEntity<>(categoriaService.create(novaCategoriaDto), HttpStatus.CREATED);
-        } catch (NomeCategoriaJaRegistradoException ex) {
+        } catch (NomeJaRegistradoException ex) {
             Map<String, Object> corpoDaResposta = new HashMap<>();
             corpoDaResposta.put("nome", ex.getMessage());
 
@@ -51,7 +49,7 @@ public class CategoriaController {
     public ResponseEntity<Object> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
         try {
             return new ResponseEntity<>(categoriaService.update(id, categoriaDto), HttpStatus.OK);
-        } catch (NomeCategoriaJaRegistradoException ex) {
+        } catch (NomeJaRegistradoException ex) {
             Map<String, Object> corpoDaResposta = new HashMap<>();
             corpoDaResposta.put("nome", ex.getMessage());
             return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
