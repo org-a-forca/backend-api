@@ -1,6 +1,5 @@
 package br.com.aforca.admin.domain.entity;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +14,6 @@ public class Categoria {
     @Setter
     private Long id;
 
-    @NotNull
-    @Column(name = "nome", length = 50, nullable = false, unique = true)
     @Getter
     @Setter
     private String nome;
