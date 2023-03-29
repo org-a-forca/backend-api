@@ -4,3 +4,12 @@ CREATE TABLE IF NOT EXISTS categoria (
   id SERIAL PRIMARY KEY,
   nome CITEXT NOT NULL UNIQUE CHECK(LENGTH(nome) <= 50)
 );
+
+CREATE TABLE IF NOT EXISTS servico (
+  id SERIAL PRIMARY KEY,
+  nome CITEXT NOT NULL UNIQUE CHECK(LENGTH(nome) <= 75),
+  categoria_id INTEGER,
+  CONSTRAINT fk_categoria
+    FOREIGN KEY(categoria_id)
+      REFERENCES categoria(id)
+);
