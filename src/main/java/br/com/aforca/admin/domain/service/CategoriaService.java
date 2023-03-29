@@ -37,6 +37,11 @@ public class CategoriaService {
     }
 
     public CategoriaDto update(@NotNull @Positive Long id, @Valid @NotNull CategoriaDto categoriaDto) {
+        var categoria = categoriaRepository.findByNome(categoriaDto.getNome());
+
+        if (categoria != null && !categoria.getId().equals(id))
+            throw new NomeCategoriaJaRegistradoException("Já existe uma categoria com esse nome");
+
         return categoriaRepository.findById(id)
             .map(categoriaFound -> {
                 categoriaFound.setNome(categoriaDto.getNome());

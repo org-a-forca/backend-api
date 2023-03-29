@@ -48,8 +48,14 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public CategoriaDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
-        return categoriaService.update(id, categoriaDto);
+    public ResponseEntity<Object> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull CategoriaDto categoriaDto) {
+        try {
+            return new ResponseEntity<>(categoriaService.update(id, categoriaDto), HttpStatus.OK);
+        } catch (NomeCategoriaJaRegistradoException ex) {
+            Map<String, Object> corpoDaResposta = new HashMap<>();
+            corpoDaResposta.put("nome", ex.getMessage());
+            return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{id}")
