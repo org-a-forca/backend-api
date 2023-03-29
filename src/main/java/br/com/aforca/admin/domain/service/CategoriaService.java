@@ -1,5 +1,6 @@
 package br.com.aforca.admin.domain.service;
 
+import br.com.aforca.admin.api.exception.NomeCategoriaJaRegistradoException;
 import br.com.aforca.admin.api.mapper.CategoriaMapper;
 import br.com.aforca.admin.api.model.CategoriaDto;
 import br.com.aforca.admin.api.model.NovaCategoriaDto;
@@ -21,6 +22,9 @@ public class CategoriaService {
     private final CategoriaMapper categoriaMapper;
 
     public CategoriaDto create(@Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
+        if (categoriaRepository.findByNome(novaCategoriaDto.getNome()) != null)
+            throw new NomeCategoriaJaRegistradoException("Nome da categoria já registrado");
+
         return categoriaMapper.toDTO(categoriaRepository.save(categoriaMapper.toEntity(novaCategoriaDto)));
     }
 

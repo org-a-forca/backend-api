@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
+import br.com.aforca.admin.api.exception.NomeCategoriaJaRegistradoException;
 import br.com.aforca.admin.api.model.CategoriaDto;
 import br.com.aforca.admin.api.model.NovaCategoriaDto;
 import br.com.aforca.admin.domain.service.CategoriaService;
@@ -23,8 +24,15 @@ public class CategoriaController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public CategoriaDto create(@RequestBody @Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
-        return categoriaService.create(novaCategoriaDto);
+    public ResponseEntity<Object> create(@RequestBody @Valid @NotNull NovaCategoriaDto novaCategoriaDto) {
+        try {
+            return new ResponseEntity<>(categoriaService.create(novaCategoriaDto), HttpStatus.CREATED);
+        } catch (NomeCategoriaJaRegistradoException ex) {
+            Map<String, Object> corpoDaResposta = new HashMap<>();
+            corpoDaResposta.put("nome", ex.getMessage());
+
+            return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")
