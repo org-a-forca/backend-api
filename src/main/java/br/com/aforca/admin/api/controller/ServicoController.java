@@ -60,8 +60,14 @@ public class ServicoController {
   }
 
   @PutMapping("/{id}")
-  public ServicoDto update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
-    return servicoService.update(id, novoServicoDto);
+  public ResponseEntity<Object> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
+    try {
+      return new ResponseEntity<>(servicoService.update(id, novoServicoDto), HttpStatus.OK);
+    } catch (NomeJaRegistradoException ex) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("nome", ex.getMessage());
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @DeleteMapping("/{id}")

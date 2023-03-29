@@ -55,6 +55,11 @@ public class ServicoService {
   }
 
   public ServicoDto update(@NotNull @Positive Long id, @Valid @NotNull NovoServicoDto novoServicoDto) {
+    var servico = servicoRepository.findByNome(novoServicoDto.getNome());
+
+    if (servico != null && !servico.getId().equals(id))
+      throw new NomeJaRegistradoException("Já existe um serviço com esse nome");
+
     return servicoRepository.findById(id)
         .map(servicoFound -> {
           servicoFound.setNome(novoServicoDto.getNome());
