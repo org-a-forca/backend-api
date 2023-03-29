@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
+import br.com.aforca.admin.api.exception.NomeJaRegistradoException;
 import br.com.aforca.admin.api.model.NovoServicoDto;
 import br.com.aforca.admin.api.model.ServicoAsElementDto;
 import br.com.aforca.admin.api.model.ServicoDto;
@@ -23,9 +24,15 @@ public class ServicoController {
   private final ServicoService servicoService;
 
   @PostMapping
-  @ResponseStatus(code = HttpStatus.CREATED)
-  public ServicoDto create(@RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
-    return servicoService.create(novoServicoDto);
+  public ResponseEntity<Object> create(@RequestBody @Valid @NotNull NovoServicoDto novoServicoDto) {
+    try {
+      return new ResponseEntity<>(servicoService.create(novoServicoDto), HttpStatus.CREATED);
+    } catch (NomeJaRegistradoException ex) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("nome", ex.getMessage());
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @GetMapping("/{id}")
