@@ -15,8 +15,6 @@ public class Servico {
   @Setter
   private Long id;
 
-  @NotNull
-  @Column(name = "nome", length = 75, nullable = false)
   @Getter
   @Setter
   private String nome;
