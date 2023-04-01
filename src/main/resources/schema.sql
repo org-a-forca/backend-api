@@ -23,3 +23,23 @@ CREATE TABLE IF NOT EXISTS contratante (
     data_cadastro DATE NOT NULL DEFAULT CURRENT_DATE,
     observacoes TEXT
 );
+
+CREATE TABLE IF NOT EXISTS trabalhador (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(11) NOT NULL CHECK(telefone ~ '[0-9]{11}'),
+    endereco VARCHAR(200),
+    email VARCHAR(100),
+    nivel INTEGER,
+    data_cadastro DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_ultimo_contrato DATE,
+    referencias TEXT,
+    restricoes TEXT,
+    observacoes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS trabalhadores_servicos (
+    trabalhador_id INTEGER REFERENCES trabalhador(id),
+    servico_id INTEGER REFERENCES servico(id),
+    PRIMARY KEY (trabalhador_id, servico_id)
+)
