@@ -13,3 +13,13 @@ CREATE TABLE IF NOT EXISTS servico (
     FOREIGN KEY(categoria_id)
       REFERENCES categoria(id)
 );
+
+CREATE TABLE IF NOT EXISTS contratante (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(11) NOT NULL CHECK(telefone ~ '[0-9]{11}'),
+    endereco VARCHAR(200),
+    email VARCHAR(100),
+    data_cadastro DATE NOT NULL DEFAULT CURRENT_DATE,
+    observacoes TEXT
+);
