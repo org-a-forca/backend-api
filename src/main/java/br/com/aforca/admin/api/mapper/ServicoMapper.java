@@ -36,18 +36,6 @@ public class ServicoMapper {
     return servicoAsElementDto;
   }
 
-  /*public Servico toEntity(ServicoDto servicoDto) {
-    if (servicoDto == null) return null;
-
-    var servico = new Servico();
-
-    if (servicoDto.getId() != null) servico.setId(servicoDto.getId());
-    servico.setNome(servicoDto.getNome());
-    servico.setCategoria(servicoDto.getCategoria());
-
-    return servico;
-  }*/
-
   public Servico toEntity(NovoServicoDto novoServicoDto) {
     if (novoServicoDto == null) return null;
 
