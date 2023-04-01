@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -39,7 +41,7 @@ public class Contratante {
   @Getter
   @Setter
   @Column(name = "data_cadastro")
-  private Date dataCadastro;
+  private LocalDate dataCadastro;
 
   @Getter
   @Setter
@@ -50,6 +52,7 @@ public class Contratante {
     this.telefone = novoContratanteDto.getTelefone();
     this.endereco = novoContratanteDto.getEndereco();
     this.email = novoContratanteDto.getEmail();
+    this.dataCadastro = LocalDate.now();
     this.observacoes = novoContratanteDto.getObservacoes();
   }
 }

@@ -4,7 +4,7 @@ import br.com.aforca.admin.domain.entity.Contratante;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +14,7 @@ public class ContratanteDto {
   private String telefone;
   private String endereco;
   private String email;
-  private Date dataCadastro;
+  private LocalDate dataCadastro;
   private String observacoes;
 
   public ContratanteDto(Contratante contratante) {
