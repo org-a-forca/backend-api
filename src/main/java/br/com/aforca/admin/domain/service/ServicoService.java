@@ -3,7 +3,7 @@ package br.com.aforca.admin.domain.service;
 import br.com.aforca.admin.api.exception.NomeJaRegistradoException;
 import br.com.aforca.admin.api.mapper.ServicoMapper;
 import br.com.aforca.admin.api.model.NovoServicoDto;
-import br.com.aforca.admin.api.model.ServicoAsElementDto;
+import br.com.aforca.admin.api.model.ServicoResumoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.repository.CategoriaRepository;
 import br.com.aforca.admin.domain.repository.ServicoRepository;
@@ -40,7 +40,7 @@ public class ServicoService {
     return servicoRepository.findById(id).map(servicoMapper::toDTO).orElseThrow();
   }
 
-  public List<ServicoAsElementDto> getAll(String nome, Integer pagNum, Integer pagTam) {
+  public List<ServicoResumoDto> getAll(String nome, Integer pagNum, Integer pagTam) {
     if (nome != null && !nome.isBlank())
       return servicoRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toAsElementDTO).collect(Collectors.toList());
     else

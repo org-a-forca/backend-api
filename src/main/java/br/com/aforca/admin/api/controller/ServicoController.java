@@ -2,7 +2,7 @@ package br.com.aforca.admin.api.controller;
 
 import br.com.aforca.admin.api.exception.NomeJaRegistradoException;
 import br.com.aforca.admin.api.model.NovoServicoDto;
-import br.com.aforca.admin.api.model.ServicoAsElementDto;
+import br.com.aforca.admin.api.model.ServicoResumoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.service.ServicoService;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class ServicoController {
 
   @GetMapping
   public ResponseEntity<Object> getAll(@RequestParam(required = false) String nome, @RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
-    List<ServicoAsElementDto> servicos = servicoService.getAll(nome, pagNum, pagTam);
+    List<ServicoResumoDto> servicos = servicoService.getAll(nome, pagNum, pagTam);
     Map<String, Object> corpoDaResposta = new HashMap<>();
 
     if (servicos.isEmpty()) {

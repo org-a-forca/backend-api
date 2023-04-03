@@ -1,7 +1,7 @@
 package br.com.aforca.admin.api.mapper;
 
 import br.com.aforca.admin.api.model.NovoServicoDto;
-import br.com.aforca.admin.api.model.ServicoAsElementDto;
+import br.com.aforca.admin.api.model.ServicoResumoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.entity.Categoria;
 import br.com.aforca.admin.domain.entity.Servico;
@@ -25,10 +25,10 @@ public class ServicoMapper {
     return servicoDto;
   }
 
-  public ServicoAsElementDto toAsElementDTO(Servico servico) {
+  public ServicoResumoDto toAsElementDTO(Servico servico) {
     if (servico == null) return null;
 
-    var servicoAsElementDto = new ServicoAsElementDto();
+    var servicoAsElementDto = new ServicoResumoDto();
     servicoAsElementDto.setId(servico.getId());
     servicoAsElementDto.setNome(servico.getNome());
     servicoAsElementDto.setCategoriaNome(servico.getCategoria().getNome());
