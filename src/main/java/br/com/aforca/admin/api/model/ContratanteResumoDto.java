@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ContratanteAsElementDto {
+public class ContratanteResumoDto {
   private Long id;
   private String nome;
   private String telefone;
 
-  public ContratanteAsElementDto(Contratante contratante) {
+  public ContratanteResumoDto(Contratante contratante) {
     this.id = contratante.getId();
     this.nome = contratante.getNome();
     this.telefone = contratante.getTelefone();

@@ -1,6 +1,6 @@
 package br.com.aforca.admin.api.mapper;
 
-import br.com.aforca.admin.api.model.ContratanteAsElementDto;
+import br.com.aforca.admin.api.model.ContratanteResumoDto;
 import br.com.aforca.admin.api.model.ContratanteDto;
 import br.com.aforca.admin.api.model.NovoContratanteDto;
 import br.com.aforca.admin.domain.entity.Contratante;
@@ -12,8 +12,8 @@ public class ContratanteMapper {
     return contratante == null ? null : new ContratanteDto(contratante);
   }
 
-  public ContratanteAsElementDto toAsElementDto(Contratante contratante) {
-    return contratante == null ? null : new ContratanteAsElementDto(contratante);
+  public ContratanteResumoDto toAsElementDto(Contratante contratante) {
+    return contratante == null ? null : new ContratanteResumoDto(contratante);
   }
 
   public Contratante toEntity(NovoContratanteDto novoContratanteDto) {

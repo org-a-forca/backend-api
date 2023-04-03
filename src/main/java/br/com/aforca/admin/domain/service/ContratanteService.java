@@ -1,7 +1,7 @@
 package br.com.aforca.admin.domain.service;
 
 import br.com.aforca.admin.api.mapper.ContratanteMapper;
-import br.com.aforca.admin.api.model.ContratanteAsElementDto;
+import br.com.aforca.admin.api.model.ContratanteResumoDto;
 import br.com.aforca.admin.api.model.ContratanteDto;
 import br.com.aforca.admin.api.model.NovoContratanteDto;
 import br.com.aforca.admin.domain.repository.ContratanteRepository;
@@ -30,7 +30,7 @@ public class ContratanteService {
     return contratanteRepository.findById(id).map(contratanteMapper::toDto).orElseThrow();
   }
 
-  public List<ContratanteAsElementDto> getAll(String nome, String telefone, Integer pagNum, Integer pagTam) {
+  public List<ContratanteResumoDto> getAll(String nome, String telefone, Integer pagNum, Integer pagTam) {
     if (nome != null && !nome.isBlank())
       return contratanteRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toAsElementDto).collect(Collectors.toList());
     else if (telefone != null && !telefone.isBlank())
