@@ -9,18 +9,17 @@ import javax.validation.constraints.Size;
 @Data
 public class NovoContratanteDto {
   @NotBlank(message = "O nome do contratante é obrigatório")
-  @Size(max = 100, message = "O nome não deve ultrapassar 100 caracteres")
+  @Size(max = 100, message = "O nome do contratante deve ter no máximo 100 caracteres")
   private String nome;
 
   @NotBlank(message = "O telefone do contratante é obrigatório")
-  @Pattern(regexp = "[0-9]{11}", message = "Informe somente os 11 números do telefone do contratante")
-  @Size(max = 11, message = "O número do telefone não deve ultrapassar 11 digitos")
+  @Pattern(regexp = "[0-9]{11}", message = "O número do telefone do contratante deve ter somente os 11 dígitos")
   private String telefone;
 
-  @Size(max = 200, message = "O endereço não deve ultrapassar 200 caracteres")
+  @Size(max = 200, message = "O endereço do contratante deve ter no máximo 200 caracteres")
   private String endereco;
 
-  @Size(max = 100, message = "O email não deve ultrapassar 100 caracteres")
+  @Size(max = 100, message = "O email do contratante deve ter no máximo 100 caracteres")
   private String email;
   private String observacoes;
 }
