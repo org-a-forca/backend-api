@@ -25,15 +25,15 @@ public class CategoriaService {
         if (categoriaRepository.findByNome(novaCategoriaDto.getNome()) != null)
             throw new NomeJaRegistradoException("Nome da categoria já registrado");
 
-        return categoriaMapper.toDTO(categoriaRepository.save(categoriaMapper.toEntity(novaCategoriaDto)));
+        return categoriaMapper.toDto(categoriaRepository.save(categoriaMapper.toEntity(novaCategoriaDto)));
     }
 
     public CategoriaDto getById(@PathVariable @NotNull @Positive Long id) {
-        return categoriaRepository.findById(id).map(categoriaMapper::toDTO).orElseThrow();
+        return categoriaRepository.findById(id).map(categoriaMapper::toDto).orElseThrow();
     }
 
     public List<CategoriaDto> getAll() {
-        return categoriaRepository.findAll().stream().map(categoriaMapper::toDTO).collect(Collectors.toList());
+        return categoriaRepository.findAll().stream().map(categoriaMapper::toDto).collect(Collectors.toList());
     }
 
     public CategoriaDto update(@NotNull @Positive Long id, @Valid @NotNull CategoriaDto categoriaDto) {
@@ -45,7 +45,7 @@ public class CategoriaService {
         return categoriaRepository.findById(id)
             .map(categoriaFound -> {
                 categoriaFound.setNome(categoriaDto.getNome());
-                return categoriaMapper.toDTO(categoriaRepository.save(categoriaFound));
+                return categoriaMapper.toDto(categoriaRepository.save(categoriaFound));
             }).orElseThrow();
     }
 

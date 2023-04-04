@@ -20,7 +20,7 @@ public class ServicoMapper {
     var servicoDto = new ServicoDto();
     servicoDto.setId(servico.getId());
     servicoDto.setNome(servico.getNome());
-    servicoDto.setCategoria(categoriaMapper.toDTO(servico.getCategoria()));
+    servicoDto.setCategoria(categoriaMapper.toDto(servico.getCategoria()));
 
     return servicoDto;
   }
