@@ -12,7 +12,7 @@ public class ContratanteMapper {
     return contratante == null ? null : new ContratanteDto(contratante);
   }
 
-  public ContratanteResumoDto toAsElementDto(Contratante contratante) {
+  public ContratanteResumoDto toResumoDto(Contratante contratante) {
     return contratante == null ? null : new ContratanteResumoDto(contratante);
   }
 

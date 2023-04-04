@@ -32,11 +32,11 @@ public class ContratanteService {
 
   public List<ContratanteResumoDto> getAll(String nome, String telefone, Integer pagNum, Integer pagTam) {
     if (nome != null && !nome.isBlank())
-      return contratanteRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toAsElementDto).collect(Collectors.toList());
+      return contratanteRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toResumoDto).collect(Collectors.toList());
     else if (telefone != null && !telefone.isBlank())
-      return contratanteRepository.findAllByTelefone(telefone, PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toAsElementDto).collect(Collectors.toList());
+      return contratanteRepository.findAllByTelefone(telefone, PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toResumoDto).collect(Collectors.toList());
     else
-      return contratanteRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toAsElementDto).collect(Collectors.toList());
+      return contratanteRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(contratanteMapper::toResumoDto).collect(Collectors.toList());
   }
 
   public Long getAllQuantidade(String nome, String telefone) {
