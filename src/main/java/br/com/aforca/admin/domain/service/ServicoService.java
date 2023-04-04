@@ -30,21 +30,21 @@ public class ServicoService {
     if (servicoRepository.findByNome(novoServicoDto.getNome()) != null)
       throw new NomeJaRegistradoException("Nome do serviço já registrado");
 
-    var servicodto = servicoMapper.toDTO(servicoRepository.save(servicoMapper.toEntity(novoServicoDto)));
+    var servicodto = servicoMapper.toDto(servicoRepository.save(servicoMapper.toEntity(novoServicoDto)));
     servicodto.setCategoria(categoriaService.getById(novoServicoDto.getCategoriaId()));
 
     return servicodto;
   }
 
   public ServicoDto getById(@PathVariable @NotNull @Positive Long id) {
-    return servicoRepository.findById(id).map(servicoMapper::toDTO).orElseThrow();
+    return servicoRepository.findById(id).map(servicoMapper::toDto).orElseThrow();
   }
 
   public List<ServicoResumoDto> getAll(String nome, Integer pagNum, Integer pagTam) {
     if (nome != null && !nome.isBlank())
-      return servicoRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toAsElementDTO).collect(Collectors.toList());
+      return servicoRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toResumoDto).collect(Collectors.toList());
     else
-      return servicoRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toAsElementDTO).collect(Collectors.toList());
+      return servicoRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(servicoMapper::toResumoDto).collect(Collectors.toList());
   }
 
   public Long getAllQuantidade(String nome) {
@@ -64,7 +64,7 @@ public class ServicoService {
         .map(servicoFound -> {
           servicoFound.setNome(novoServicoDto.getNome());
           servicoFound.setCategoria(categoriaRepository.findById(novoServicoDto.getCategoriaId()).get());
-          return servicoMapper.toDTO(servicoRepository.save(servicoFound));
+          return servicoMapper.toDto(servicoRepository.save(servicoFound));
         }).orElseThrow();
   }
 

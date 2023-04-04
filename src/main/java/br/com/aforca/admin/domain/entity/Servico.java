@@ -1,13 +1,17 @@
 package br.com.aforca.admin.domain.entity;
 
-import com.sun.istack.NotNull;
+import br.com.aforca.admin.api.model.NovoServicoDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "servico")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Servico {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +28,12 @@ public class Servico {
   @Getter
   @Setter
   private Categoria categoria;
+
+  public Servico(NovoServicoDto novoServicoDto) {
+    var categoria = new Categoria();
+    categoria.setId(novoServicoDto.getCategoriaId());
+
+    this.nome = novoServicoDto.getNome();
+    this.categoria = categoria;
+  }
 }
