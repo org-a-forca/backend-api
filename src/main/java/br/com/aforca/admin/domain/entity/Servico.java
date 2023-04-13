@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "servico")
@@ -28,6 +29,9 @@ public class Servico {
   @Getter
   @Setter
   private Categoria categoria;
+
+  @ManyToMany(mappedBy = "servicos")
+  private List<Trabalhador> trabalhadores;
 
   public Servico(NovoServicoDto novoServicoDto) {
     var categoria = new Categoria();
