@@ -1,17 +1,16 @@
 package br.com.aforca.admin.api.controller;
 
 import br.com.aforca.admin.api.model.NovoTrabalhadorDto;
+import br.com.aforca.admin.api.model.TrabalhadorDto;
 import br.com.aforca.admin.domain.service.TrabalhadorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/trabalhador")
@@ -22,5 +21,10 @@ public class TrabalhadorController {
   @PostMapping
   public ResponseEntity<Object> create(@RequestBody @Valid @NotNull NovoTrabalhadorDto novoTrabalhadorDto) {
     return new ResponseEntity<>(trabalhadorService.create(novoTrabalhadorDto), HttpStatus.CREATED);
+  }
+
+  @GetMapping("/{id}")
+  public TrabalhadorDto getById(@PathVariable @NotNull @Positive Long id) {
+    return trabalhadorService.getById(id);
   }
 }
