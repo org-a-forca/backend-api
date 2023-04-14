@@ -2,6 +2,7 @@ package br.com.aforca.admin.api.controller;
 
 import br.com.aforca.admin.api.model.NovoTrabalhadorDto;
 import br.com.aforca.admin.api.model.TrabalhadorDto;
+import br.com.aforca.admin.api.model.TrabalhadorResumoDto;
 import br.com.aforca.admin.domain.service.TrabalhadorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/trabalhador")
@@ -26,5 +30,24 @@ public class TrabalhadorController {
   @GetMapping("/{id}")
   public TrabalhadorDto getById(@PathVariable @NotNull @Positive Long id) {
     return trabalhadorService.getById(id);
+  }
+
+  @GetMapping
+  public ResponseEntity<Object> getAll(@RequestParam(required = false) String nome, @RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
+    List<TrabalhadorResumoDto> trabalhadores = trabalhadorService.getAll(nome, pagNum, pagTam);
+    Map<String, Object> corpoDaResposta = new HashMap<>();
+
+    if (trabalhadores.isEmpty()) {
+      return new ResponseEntity<>(trabalhadores, HttpStatus.OK);
+    } else {
+      Long qtdeTotalTrabalhadores = trabalhadorService.getAllQuantidade(nome);
+
+      corpoDaResposta.put("trabalhadores", trabalhadores);
+      corpoDaResposta.put("qtdeTrabalhadores", qtdeTotalTrabalhadores);
+      corpoDaResposta.put("pagNum", pagNum);
+      corpoDaResposta.put("pagTam", pagTam);
+
+      return ResponseEntity.ok(corpoDaResposta);
+    }
   }
 }
