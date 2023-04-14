@@ -51,6 +51,10 @@ public class TrabalhadorService {
       return trabalhadorRepository.count();
   }
 
+  public void delete(@PathVariable @NotNull @Positive Long id) {
+    trabalhadorRepository.delete(trabalhadorRepository.findById(id).orElseThrow());
+  }
+
   private List<Servico> listaServicos(List<Long> servicosIds) {
     List<Servico> servicos = new ArrayList<>();
     for (Long id : servicosIds) {

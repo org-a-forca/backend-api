@@ -50,4 +50,10 @@ public class TrabalhadorController {
       return ResponseEntity.ok(corpoDaResposta);
     }
   }
+
+  @DeleteMapping("/{id}")
+  @ResponseStatus(code = HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable @NotNull @Positive Long id) {
+    trabalhadorService.delete(id);
+  }
 }
