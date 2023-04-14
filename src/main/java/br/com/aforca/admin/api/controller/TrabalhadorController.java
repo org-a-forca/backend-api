@@ -34,14 +34,14 @@ public class TrabalhadorController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getAll(@RequestParam(required = false) String nome, @RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
-    List<TrabalhadorResumoDto> trabalhadores = trabalhadorService.getAll(nome, pagNum, pagTam);
+  public ResponseEntity<Object> getAll(@RequestParam(required = false) String nome, @RequestParam(required = false) String servico, @RequestParam(required = false, defaultValue = "0") Integer pagNum, @RequestParam(required = false, defaultValue = "5") Integer pagTam) {
+    List<TrabalhadorResumoDto> trabalhadores = trabalhadorService.getAll(nome, servico, pagNum, pagTam);
     Map<String, Object> corpoDaResposta = new HashMap<>();
 
     if (trabalhadores.isEmpty()) {
       return new ResponseEntity<>(trabalhadores, HttpStatus.OK);
     } else {
-      Long qtdeTotalTrabalhadores = trabalhadorService.getAllQuantidade(nome);
+      Long qtdeTotalTrabalhadores = trabalhadorService.getAllQuantidade(nome, servico);
 
       corpoDaResposta.put("trabalhadores", trabalhadores);
       corpoDaResposta.put("qtdeTrabalhadores", qtdeTotalTrabalhadores);

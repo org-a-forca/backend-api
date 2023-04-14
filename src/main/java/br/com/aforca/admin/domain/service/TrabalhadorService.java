@@ -37,14 +37,21 @@ public class TrabalhadorService {
     return trabalhadorRepository.findById(id).map(trabalhadorMapper::toDto).orElseThrow();
   }
 
-  public List<TrabalhadorResumoDto> getAll(String nome, Integer pagNum, Integer pagTam) {
-    if (nome != null && !nome.isBlank())
+  public List<TrabalhadorResumoDto> getAll(String nome, String servico, Integer pagNum, Integer pagTam) {
+    if (nome != null && !nome.isBlank()) {
       return trabalhadorRepository.findAllByNome(nome, PageRequest.of(pagNum, pagTam)).stream().map(trabalhadorMapper::toResumoDto).collect(Collectors.toList());
-    else
+    } else if (servico != null && !servico.isBlank()) {
+      List<Long> idsServicos = servicoRepository.findIdsAllByNome(servico);
+
+      if (idsServicos.isEmpty()) return new ArrayList<>();
+
+      return trabalhadorRepository.findAllByIdsServicos(idsServicos, PageRequest.of(pagNum, pagTam)).stream().map(trabalhadorMapper::toResumoDto).collect(Collectors.toList());
+    } else {
       return trabalhadorRepository.findAll(PageRequest.of(pagNum, pagTam)).stream().map(trabalhadorMapper::toResumoDto).collect(Collectors.toList());
+    }
   }
 
-  public Long getAllQuantidade(String nome) {
+  public Long getAllQuantidade(String nome, String servico) {
     if (nome != null && !nome.isBlank())
       return trabalhadorRepository.findAllByNomeQuantidade(nome);
     else

@@ -13,4 +13,7 @@ public interface TrabalhadorRepository extends PagingAndSortingRepository<Trabal
 
   @Query(value = "select count(*) from trabalhador where nome ilike %:nome%", nativeQuery = true)
   Long findAllByNomeQuantidade(String nome);
+
+  @Query(value = "select distinct t.* from trabalhador t inner join trabalhadores_servicos ts on ts.trabalhador_id = t.id where ts.servico_id in :ids", nativeQuery = true)
+  List<Trabalhador> findAllByIdsServicos(List<Long> ids, Pageable pageable);
 }

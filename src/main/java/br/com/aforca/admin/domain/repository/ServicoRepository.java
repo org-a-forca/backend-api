@@ -17,4 +17,7 @@ public interface ServicoRepository extends PagingAndSortingRepository<Servico, L
 
   @Query(value = "select * from servico where lower(nome) = lower(:nome)", nativeQuery = true)
   Servico findByNome(String nome);
+
+  @Query(value = "select id from servico where nome ilike %:nome%", nativeQuery = true)
+  List<Long> findIdsAllByNome(String nome);
 }
