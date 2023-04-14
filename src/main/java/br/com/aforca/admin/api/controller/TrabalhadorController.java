@@ -52,6 +52,11 @@ public class TrabalhadorController {
     }
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Object> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull NovoTrabalhadorDto novoTrabalhadorDto) {
+    return ResponseEntity.ok().body(trabalhadorService.update(id, novoTrabalhadorDto));
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable @NotNull @Positive Long id) {
     try {

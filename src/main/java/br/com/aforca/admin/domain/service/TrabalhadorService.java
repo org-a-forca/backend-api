@@ -51,6 +51,21 @@ public class TrabalhadorService {
       return trabalhadorRepository.count();
   }
 
+  public TrabalhadorDto update(@NotNull @Positive Long id, @Valid @NotNull NovoTrabalhadorDto novoTrabalhadorDto) {
+    return trabalhadorRepository.findById(id)
+        .map(trabalhadorFound -> {
+          trabalhadorFound.setNome(novoTrabalhadorDto.getNome());
+          trabalhadorFound.setTelefone(novoTrabalhadorDto.getTelefone());
+          trabalhadorFound.setEndereco(novoTrabalhadorDto.getEndereco());
+          trabalhadorFound.setEmail(novoTrabalhadorDto.getEmail());
+          trabalhadorFound.setReferencias(novoTrabalhadorDto.getReferencias());
+          trabalhadorFound.setRestricoes(novoTrabalhadorDto.getRestricoes());
+          trabalhadorFound.setServicos(listaServicos(novoTrabalhadorDto.getServicosIds()));
+
+          return trabalhadorMapper.toDto(trabalhadorRepository.save(trabalhadorFound));
+        }).orElseThrow();
+  }
+
   public void delete(@PathVariable @NotNull @Positive Long id) {
     trabalhadorRepository.delete(trabalhadorRepository.findById(id).orElseThrow());
   }
