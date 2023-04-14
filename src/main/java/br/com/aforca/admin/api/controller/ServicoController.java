@@ -6,6 +6,7 @@ import br.com.aforca.admin.api.model.ServicoResumoDto;
 import br.com.aforca.admin.api.model.ServicoDto;
 import br.com.aforca.admin.domain.service.ServicoService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,8 +72,16 @@ public class ServicoController {
   }
 
   @DeleteMapping("/{id}")
-  @ResponseStatus(code = HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable @NotNull @Positive Long id) {
-    servicoService.delete(id);
+  public ResponseEntity<Object> delete(@PathVariable @NotNull @Positive Long id) {
+    try {
+      servicoService.delete(id);
+
+      return ResponseEntity.noContent().build();
+    } catch (DataIntegrityViolationException ex) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("mensagem", "Esse serviço está sendo utilizada em outros registros");
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.CONFLICT);
+    }
   }
 }
