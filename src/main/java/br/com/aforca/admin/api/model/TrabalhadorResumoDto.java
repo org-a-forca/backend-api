@@ -32,15 +32,17 @@ public class TrabalhadorResumoDto {
   }
 
   private String textoMesesUltimoContrato(LocalDate dataUltimoContrato) {
+    if (dataUltimoContrato == null) return "Não possui";
+
     var dataHoje = LocalDate.now();
-    Period periodo = Period.between(dataHoje.withDayOfMonth(1), dataUltimoContrato.withDayOfMonth(1));
-    int meses = periodo.getYears() * 12 + periodo.getMonths();
+    var periodo = Period.between(dataHoje.withDayOfMonth(1), dataUltimoContrato.withDayOfMonth(1));
+    var meses = periodo.getYears() * 12 + periodo.getMonths();
 
     return meses + " meses";
   }
 
   private String textoServicos(List<Servico> servicos) {
     List<String> servicosNomes = servicos.stream().map(s -> s.getNome()).collect(Collectors.toList());
-    return servicosNomes.toString().substring(1, servicosNomes.toArray().length - 1);
+    return servicosNomes.toString().substring(1, servicosNomes.toString().length() - 1);
   }
 }
