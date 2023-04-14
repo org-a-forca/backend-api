@@ -5,6 +5,7 @@ import br.com.aforca.admin.api.model.TrabalhadorDto;
 import br.com.aforca.admin.api.model.TrabalhadorResumoDto;
 import br.com.aforca.admin.domain.service.TrabalhadorService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +53,16 @@ public class TrabalhadorController {
   }
 
   @DeleteMapping("/{id}")
-  @ResponseStatus(code = HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable @NotNull @Positive Long id) {
-    trabalhadorService.delete(id);
+  public ResponseEntity<Object> delete(@PathVariable @NotNull @Positive Long id) {
+    try {
+      trabalhadorService.delete(id);
+
+      return ResponseEntity.noContent().build();
+    } catch (DataIntegrityViolationException ex) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("mensagem", "Esse(a) trabalhador(a) está sendo utilizado(a) em outros registros");
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.CONFLICT);
+    }
   }
 }
