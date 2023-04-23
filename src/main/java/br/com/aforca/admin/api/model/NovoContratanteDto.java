@@ -2,6 +2,7 @@ package br.com.aforca.admin.api.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -20,6 +21,8 @@ public class NovoContratanteDto {
   private String endereco;
 
   @Size(max = 100, message = "O email do contratante deve ter no máximo 100 caracteres")
+  @Email(message = "O email do contratante deve ser de formato válido")
   private String email;
+
   private String observacoes;
 }
