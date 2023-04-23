@@ -42,4 +42,27 @@ CREATE TABLE IF NOT EXISTS trabalhadores_servicos (
     trabalhador_id INTEGER REFERENCES trabalhador(id),
     servico_id INTEGER REFERENCES servico(id),
     PRIMARY KEY (trabalhador_id, servico_id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS contrato (
+    id SERIAL PRIMARY KEY,
+    contratante_id INTEGER,
+    trabalhador_id INTEGER,
+    data DATE NOT NULL DEFAULT CURRENT_DATE,
+    status VARCHAR(11) CHECK(status IN ('Aberto', 'Desistiu', 'Feito', 'Para depois', 'Pago fora')),
+    nota_trabalhador INTEGER CHECK(nota_trabalhador IN (NULL, 1, 2, 3, 4, 5)),
+    nota_contratante INTEGER CHECK(nota_contratante IN (NULL, 1, 2, 3, 4, 5)),
+    observacoes TEXT,
+    CONSTRAINT fk_contratante
+      FOREIGN KEY(contratante_id)
+        REFERENCES contratante(id),
+    CONSTRAINT fk_trabalhador
+      FOREIGN KEY(trabalhador_id)
+        REFERENCES trabalhador(id)
+);
+
+CREATE TABLE IF NOT EXISTS contratos_servicos (
+    contrato_id INTEGER REFERENCES contrato(id),
+    servico_id INTEGER REFERENCES servico(id),
+    PRIMARY KEY (contrato_id, servico_id)
+);
