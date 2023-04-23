@@ -68,6 +68,7 @@ public class TrabalhadorService {
           trabalhadorFound.setReferencias(novoTrabalhadorDto.getReferencias());
           trabalhadorFound.setRestricoes(novoTrabalhadorDto.getRestricoes());
           trabalhadorFound.setServicos(listaServicos(novoTrabalhadorDto.getServicosIds()));
+          trabalhadorFound.setObservacoes(novoTrabalhadorDto.getObservacoes());
 
           return trabalhadorMapper.toDto(trabalhadorRepository.save(trabalhadorFound));
         }).orElseThrow();
