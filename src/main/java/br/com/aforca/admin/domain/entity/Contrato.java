@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "contrato")
@@ -30,6 +31,12 @@ public class Contrato {
   @Getter
   @Setter
   private Trabalhador trabalhador;
+
+  @Getter
+  @Setter
+  @ManyToMany
+  @JoinTable(name = "contratos_servicos", joinColumns = @JoinColumn(name = "contrato_id"), inverseJoinColumns = @JoinColumn(name = "servico_id"))
+  private List<Servico> servicosContratados;
 
   @Getter
   @Setter

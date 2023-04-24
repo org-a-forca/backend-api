@@ -33,6 +33,9 @@ public class Servico {
   @ManyToMany(mappedBy = "servicos")
   private List<Trabalhador> trabalhadores;
 
+  @ManyToMany(mappedBy = "servicosContratados")
+  private List<Contrato> contratos;
+
   public Servico(NovoServicoDto novoServicoDto) {
     var categoria = new Categoria();
     categoria.setId(novoServicoDto.getCategoriaId());
