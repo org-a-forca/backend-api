@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS contrato (
     contratante_id INTEGER,
     trabalhador_id INTEGER,
     data DATE NOT NULL DEFAULT CURRENT_DATE,
-    status VARCHAR(11) CHECK(status IN ('Aberto', 'Desistiu', 'Feito', 'Para depois', 'Pago fora')),
+    status VARCHAR(11) CHECK(status IN ('Aberto', 'Desistiu', 'Feito', 'Para depois', 'Pegou fora')),
     nota_trabalhador INTEGER CHECK(nota_trabalhador IN (NULL, 1, 2, 3, 4, 5)),
     nota_contratante INTEGER CHECK(nota_contratante IN (NULL, 1, 2, 3, 4, 5)),
     observacoes TEXT,
