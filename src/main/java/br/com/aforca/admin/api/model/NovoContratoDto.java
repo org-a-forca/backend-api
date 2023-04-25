@@ -22,12 +22,10 @@ public class NovoContratoDto {
   @Pattern(regexp = "^(Aberto|Desistiu|Feito|Para depois|Pegou fora)$", message = "O status deve ser Aberto, Desistiu, Feito, Para depois ou Pegou fora")
   private String status;
 
-  @Null
   @Min(value = 1, message = "A nota para o trabalhador deve ser maior ou igual a 1")
   @Max(value = 5, message = "A nota para o trabalhador deve ser menor ou igual a 5")
   private Integer notaTrabalhador;
 
-  @Null
   @Min(value = 1, message = "A nota para o contratante deve ser maior ou igual a 1")
   @Max(value = 5, message = "A nota para o contratante deve ser menor ou igual a 5")
   private Integer notaContratante;
