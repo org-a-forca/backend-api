@@ -32,6 +32,8 @@ public class ContratoService {
 
   public ContratoDto create(@Valid @NotNull NovoContratoDto novoContratoDto) {
     var contrato = contratoRepository.save(contratoMapper.toEntity(novoContratoDto));
+    contrato.setTrabalhador(trabalhadorRepository.findById(novoContratoDto.getTrabalhadorId()).get());
+    contrato.setContratante(contratanteRepository.findById(novoContratoDto.getContratanteId()).get());
     contrato.setServicosContratados(listaServicos(novoContratoDto.getServicosContratadosIds()));
 
     return contratoMapper.toDto(contrato);
