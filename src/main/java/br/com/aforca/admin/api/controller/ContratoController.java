@@ -61,7 +61,14 @@ public class ContratoController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Object> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull NovoContratoDto novoContratoDto) {
-    return ResponseEntity.ok().body(contratoService.update(id, novoContratoDto));
+    try {
+      return ResponseEntity.ok().body(contratoService.update(id, novoContratoDto));
+    } catch (ServicoNaoVinculadorAoTrabalhadorException e) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("servicosContratadosIds", e.getMessage());
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @DeleteMapping("/{id}")

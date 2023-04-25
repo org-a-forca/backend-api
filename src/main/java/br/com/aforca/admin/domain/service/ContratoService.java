@@ -55,6 +55,8 @@ public class ContratoService {
   }
 
   public ContratoDto update(@NotNull @Positive Long id, @Valid @NotNull NovoContratoDto novoContratoDto) {
+    verificaServicosTrabalhador(novoContratoDto.getTrabalhadorId(), novoContratoDto.getServicosContratadosIds());
+
     return contratoRepository.findById(id)
         .map(contratoFound -> {
           contratoFound.setContratante(contratanteRepository.findById(novoContratoDto.getContratanteId()).get());
