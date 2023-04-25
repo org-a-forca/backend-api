@@ -1,5 +1,6 @@
 package br.com.aforca.admin.domain.service;
 
+import br.com.aforca.admin.api.exception.ServicoNaoVinculadorAoTrabalhadorException;
 import br.com.aforca.admin.api.mapper.ContratoMapper;
 import br.com.aforca.admin.api.model.ContratoDto;
 import br.com.aforca.admin.api.model.ContratoResumoDto;
@@ -31,6 +32,8 @@ public class ContratoService {
   private final TrabalhadorRepository trabalhadorRepository;
 
   public ContratoDto create(@Valid @NotNull NovoContratoDto novoContratoDto) {
+    verificaServicosTrabalhador(novoContratoDto.getTrabalhadorId(), novoContratoDto.getServicosContratadosIds());
+
     var contrato = contratoRepository.save(contratoMapper.toEntity(novoContratoDto));
     contrato.setTrabalhador(trabalhadorRepository.findById(novoContratoDto.getTrabalhadorId()).get());
     contrato.setContratante(contratanteRepository.findById(novoContratoDto.getContratanteId()).get());
@@ -77,5 +80,15 @@ public class ContratoService {
     }
 
     return servicos;
+  }
+
+  public void verificaServicosTrabalhador(Long idTrabalhor, List<Long> servicosIds) {
+    var trabalhador = trabalhadorRepository.findById(idTrabalhor).get();
+    List<Servico> servicosTrabalhador = trabalhador.getServicos();
+
+    for (Long servicoId : servicosIds) {
+      if (servicosTrabalhador.stream().noneMatch(s -> s.getId().equals(servicoId)))
+          throw new ServicoNaoVinculadorAoTrabalhadorException("O serviço de ID " + servicoId + " não está vinculado a este trabalhador");
+    }
   }
 }

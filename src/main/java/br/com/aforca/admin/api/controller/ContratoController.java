@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
+import br.com.aforca.admin.api.exception.ServicoNaoVinculadorAoTrabalhadorException;
 import br.com.aforca.admin.api.model.ContratoDto;
 import br.com.aforca.admin.api.model.ContratoResumoDto;
 import br.com.aforca.admin.api.model.NovoContratoDto;
@@ -24,7 +25,14 @@ public class ContratoController {
 
   @PostMapping
   public ResponseEntity<Object> create(@RequestBody @Valid @NotNull NovoContratoDto novoContratoDto) {
-    return new ResponseEntity<>(contratoService.create(novoContratoDto), HttpStatus.CREATED);
+    try {
+      return new ResponseEntity<>(contratoService.create(novoContratoDto), HttpStatus.CREATED);
+    } catch (ServicoNaoVinculadorAoTrabalhadorException e) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("servicosContratadosIds", e.getMessage());
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @GetMapping("/{id}")
