@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = TrabalhadorExistenteValidator.class)
     public @interface TrabalhadorExistente {
-  String message() default "O trabalha é obrigatório e deve estar registrado";
+  String message() default "O trabalhador é obrigatório e deve estar registrado";
   Class<?>[] groups() default {};
   Class<? extends Payload>[] payload() default {};
 }
