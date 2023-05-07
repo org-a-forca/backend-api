@@ -66,3 +66,9 @@ CREATE TABLE IF NOT EXISTS contratos_servicos (
     servico_id INTEGER REFERENCES servico(id),
     PRIMARY KEY (contrato_id, servico_id)
 );
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha TEXT
+);
