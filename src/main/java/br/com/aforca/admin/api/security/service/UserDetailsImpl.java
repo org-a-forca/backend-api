@@ -3,6 +3,7 @@ package br.com.aforca.admin.api.security.service;
 import br.com.aforca.admin.domain.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,8 +12,12 @@ import java.util.Objects;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
+  @Getter
   private Long id;
+
+  @Getter
   private String email;
+
   private String password;
 
   public static UserDetailsImpl build(Usuario usuario) {
@@ -22,10 +27,6 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
-  }
-
-  public String getEmail() {
-    return email;
   }
 
   @Override
