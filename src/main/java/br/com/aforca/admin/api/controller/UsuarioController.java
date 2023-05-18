@@ -14,21 +14,16 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/usuario")
+public class UsuarioController {
   @Autowired
   AuthenticationManager authenticationManager;
 
@@ -41,7 +36,7 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
-  @PostMapping("/signup")
+  @PostMapping("/criar")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (usuarioRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
@@ -54,7 +49,7 @@ public class AuthController {
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 
-  @PostMapping("/signin")
+  @PostMapping("/logar")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha()));
@@ -71,7 +66,7 @@ public class AuthController {
             userDetails.getEmail()));
   }
 
-  @PostMapping("/signout")
+  @PostMapping("/deslogar")
   public ResponseEntity<?> logoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
