@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -85,5 +86,12 @@ public class TrabalhadorService {
     }
 
     return servicos;
+  }
+
+  public void atualizaDataUltimoContrato(Long idTrabalhador, LocalDate dataUltimoContrato) {
+    var trabalhador = trabalhadorRepository.findById(idTrabalhador).get();
+    trabalhador.setDataUltimoContrato(dataUltimoContrato);
+
+    trabalhadorRepository.save(trabalhador);
   }
 }
