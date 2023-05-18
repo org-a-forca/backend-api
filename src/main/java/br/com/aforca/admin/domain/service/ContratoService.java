@@ -30,6 +30,7 @@ public class ContratoService {
   private final ServicoRepository servicoRepository;
   private final ContratanteRepository contratanteRepository;
   private final TrabalhadorRepository trabalhadorRepository;
+  private final TrabalhadorService trabalhadorService;
 
   public ContratoDto create(@Valid @NotNull NovoContratoDto novoContratoDto) {
     verificaServicosTrabalhador(novoContratoDto.getTrabalhadorId(), novoContratoDto.getServicosContratadosIds());
@@ -38,6 +39,8 @@ public class ContratoService {
     contrato.setTrabalhador(trabalhadorRepository.findById(novoContratoDto.getTrabalhadorId()).get());
     contrato.setContratante(contratanteRepository.findById(novoContratoDto.getContratanteId()).get());
     contrato.setServicosContratados(listaServicos(novoContratoDto.getServicosContratadosIds()));
+
+    trabalhadorService.atualizaDataUltimoContrato(contrato.getTrabalhador().getId(), contrato.getData());
 
     return contratoMapper.toDto(contrato);
   }
