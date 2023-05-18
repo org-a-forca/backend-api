@@ -16,29 +16,24 @@ public class TrabalhadorResumoDto {
   private Long id;
   private String nome;
   private String servicosNomes;
-  private String nivel;
-  private String mesesUltimoContrato;
+  private Integer nivel;
+  private Integer mesesUltimoContrato;
 
   public TrabalhadorResumoDto(Trabalhador trabalhador) {
     this.id = trabalhador.getId();
     this.nome = trabalhador.getNome();
     this.servicosNomes = textoServicos(trabalhador.getServicos());
-    this.nivel = textoNivel(trabalhador.getNivel());
-    this.mesesUltimoContrato = textoMesesUltimoContrato(trabalhador.getDataUltimoContrato());
+    this.nivel = trabalhador.getNivel();
+    this.mesesUltimoContrato = mesesUltimoContrato(trabalhador.getDataUltimoContrato());
   }
 
-  private String textoNivel(Integer nivel) {
-    return "Nível " + nivel;
-  }
-
-  private String textoMesesUltimoContrato(LocalDate dataUltimoContrato) {
-    if (dataUltimoContrato == null) return "Não possui";
+  private Integer mesesUltimoContrato(LocalDate dataUltimoContrato) {
+    if (dataUltimoContrato == null) return 0;
 
     var dataHoje = LocalDate.now();
     var periodo = Period.between(dataHoje.withDayOfMonth(1), dataUltimoContrato.withDayOfMonth(1));
-    var meses = periodo.getYears() * 12 + periodo.getMonths();
 
-    return meses + " meses";
+    return periodo.getYears() * 12 + periodo.getMonths();
   }
 
   private String textoServicos(List<Servico> servicos) {
