@@ -3,7 +3,6 @@ package br.com.aforca.admin.api.controller;
 import br.com.aforca.admin.api.payload.request.LoginRequest;
 import br.com.aforca.admin.api.payload.request.SignupRequest;
 import br.com.aforca.admin.api.payload.response.MessageResponse;
-import br.com.aforca.admin.api.payload.response.UserInfoResponse;
 import br.com.aforca.admin.api.security.jwt.JwtUtils;
 import br.com.aforca.admin.api.security.service.UserDetailsImpl;
 import br.com.aforca.admin.domain.entity.Usuario;
@@ -60,10 +59,7 @@ public class UsuarioController {
 
     var jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-        .body(new UserInfoResponse(userDetails.getId(),
-            userDetails.getUsername(),
-            userDetails.getEmail()));
+    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(new MessageResponse("Usuário logado com sucesso"));
   }
 
   @PostMapping("/deslogar")
