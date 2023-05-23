@@ -3,7 +3,6 @@ package br.com.aforca.admin.api.controller;
 import br.com.aforca.admin.api.exception.EmailJaRegistradoException;
 import br.com.aforca.admin.api.model.NovoUsuarioDto;
 import br.com.aforca.admin.api.model.UsuarioDto;
-import br.com.aforca.admin.api.payload.response.MessageResponse;
 import br.com.aforca.admin.api.security.jwt.JwtUtils;
 import br.com.aforca.admin.api.security.service.UserDetailsImpl;
 import br.com.aforca.admin.domain.service.UsuarioService;
