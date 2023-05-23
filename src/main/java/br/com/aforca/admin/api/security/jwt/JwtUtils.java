@@ -51,6 +51,8 @@ public class JwtUtils {
   }
 
   public boolean validateJwtToken(String authToken) {
+    if (authToken == null || authToken.isBlank()) return false;
+
     try {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
