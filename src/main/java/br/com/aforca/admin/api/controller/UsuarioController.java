@@ -38,14 +38,14 @@ public class UsuarioController {
   @PostMapping("/criar")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (usuarioRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
-      return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+      return ResponseEntity.badRequest().body(new MessageResponse("Erro: Este email já está sendo utilizado!"));
     }
 
     var usuario = new Usuario(signUpRequest.getEmail(), encoder.encode(signUpRequest.getSenha()));
 
     usuarioRepository.save(usuario);
 
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso!"));
   }
 
   @PostMapping("/logar")
@@ -66,6 +66,6 @@ public class UsuarioController {
   public ResponseEntity<?> logoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-        .body(new MessageResponse("You've been signed out!"));
+        .body(new MessageResponse("Você foi deslogado!"));
   }
 }
