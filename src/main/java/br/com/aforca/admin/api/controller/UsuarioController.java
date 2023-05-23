@@ -1,7 +1,7 @@
 package br.com.aforca.admin.api.controller;
 
-import br.com.aforca.admin.api.payload.request.LoginRequest;
-import br.com.aforca.admin.api.payload.request.SignupRequest;
+import br.com.aforca.admin.api.model.NovoUsuarioDto;
+import br.com.aforca.admin.api.model.UsuarioDto;
 import br.com.aforca.admin.api.payload.response.MessageResponse;
 import br.com.aforca.admin.api.security.jwt.JwtUtils;
 import br.com.aforca.admin.api.security.service.UserDetailsImpl;
@@ -36,12 +36,12 @@ public class UsuarioController {
   JwtUtils jwtUtils;
 
   @PostMapping("/criar")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    if (usuarioRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
+  public ResponseEntity<?> registerUser(@RequestBody @Valid NovoUsuarioDto novoUsuarioDto) {
+    if (usuarioRepository.findByEmail(novoUsuarioDto.getEmail()).isPresent()) {
       return ResponseEntity.badRequest().body(new MessageResponse("Erro: Este email já está sendo utilizado!"));
     }
 
-    var usuario = new Usuario(signUpRequest.getEmail(), encoder.encode(signUpRequest.getSenha()));
+    var usuario = new Usuario(novoUsuarioDto.getEmail(), encoder.encode(novoUsuarioDto.getSenha()));
 
     usuarioRepository.save(usuario);
 
@@ -49,9 +49,9 @@ public class UsuarioController {
   }
 
   @PostMapping("/logar")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<?> authenticateUser(@RequestBody @Valid UsuarioDto usuarioDto) {
 
-    var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha()));
+    var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuarioDto.getEmail(), usuarioDto.getSenha()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
