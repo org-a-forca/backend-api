@@ -60,12 +60,12 @@ public class UsuarioController {
 
     var jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(new MessageResponse("Usuário logado com sucesso"));
+    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).build();
   }
 
   @PostMapping("/deslogar")
   public ResponseEntity<?> logoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new MessageResponse("Você foi deslogado!"));
+    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).build();
   }
 }
