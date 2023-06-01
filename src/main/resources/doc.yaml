@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: A Força Admin API
+  description:
+    A **Força** é uma organização que busca ajudar os trabalhadores autônomos da cidade de Lavras (MG) e região a encontrar e firmar contrato com pessoas interessadas em seus serviços.
+  version: 1.0.0
+tags:
+  - name: categoria
+paths:
+  /categoria:
+    post:
+      tags:
+        - categoria
+      summary: Cria nova categoria
+      operationId: criarCategoria
+      requestBody:
+        description: Deve ser informado apenas o nome da categoria
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriaInput'
+      responses:
+        '201':
+          description: Nova categoria criada com sucesso
+        '400':
+          description: |-
+            - O nome da categoria é obrigatório
+            - O nome da categoria deve ter no máximo 50 caracteres
+            - Nome da categoria já registrado
+    get:
+      tags:
+        - categoria
+      summary: Obtém todas as categorias
+      operationId: obterTodasCategorias
+      responses:
+        '200':
+          description: Todas as categorias registradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+  /categoria/{id}:
+    get:
+      tags:
+        - categoria
+      summary: Obtém categoria pelo ID
+      operationId: obterCategoriaPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria buscada
+          required: true
+          schema:
+            type: number
+            example: 10
+      responses:
+        '200':
+          description: Categoria encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '404':
+          description: Categoria não encontrada
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 10
+        nome:
+          type: string
+          example: TI
+    CategoriaInput:
+      required:
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          example: TI
