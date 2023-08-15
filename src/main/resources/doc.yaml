@@ -37,7 +37,7 @@ paths:
       operationId: obterTodasCategorias
       responses:
         "200":
-          description: Todas as categorias registradas
+          description: Todas as categorias registradas. Senão apenas um vetor vazio.
           content:
             application/json:
               schema:
