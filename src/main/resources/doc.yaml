@@ -67,6 +67,11 @@ paths:
                 $ref: "#/components/schemas/Categoria"
         "404":
           description: Categoria não encontrada
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Registro não encontrado
     put:
       tags:
         - categoria
