@@ -121,6 +121,38 @@ paths:
               schema:
                 type: string
                 example: Registro não encontrado
+    delete:
+      tags:
+        - categoria
+      summary: Remove categoria
+      operationId: removeCategoriaPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria removida
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        "204":
+          description: Categoria encontrada e deletada
+        "404":
+          description: Categoria não encontrada
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Registro não encontrado
+        "409":
+          description: Categoria vinculada a algum registro
+          content:
+            application/json:
+              schema:
+                properties:
+                  mensagem:
+                    type: string
+                    example: Essa categoria está sendo utilizada em outros registros
 
 components:
   schemas:
