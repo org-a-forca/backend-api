@@ -109,6 +109,19 @@ paths:
                   nome:
                     type: string
                     example: "IT"
+        "400":
+          description: |-
+            - O nome da categoria é obrigatório
+            - O nome da categoria deve ter no máximo 50 caracteres
+            - Nome da categoria já registrado
+        "404":
+          description: Categoria não encontrada
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Registro não encontrado
+
 components:
   schemas:
     Categoria:
