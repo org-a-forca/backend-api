@@ -13,7 +13,7 @@ paths:
       summary: Cria nova categoria
       operationId: criarCategoria
       requestBody:
-        description: Deve ser informado apenas o nome da categoria
+        description: Deve ser informado apenas o nome da categoria, logo, o nome é obrigatório. Além disso, deve ser único e não ultrapassar 50 caracteres.
         content:
           application/json:
             schema:
@@ -21,6 +21,10 @@ paths:
       responses:
         "201":
           description: Nova categoria criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
         "400":
           description: |-
             - O nome da categoria é obrigatório
