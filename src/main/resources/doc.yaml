@@ -5,6 +5,7 @@ info:
   version: 1.0.0
 tags:
   - name: categoria
+  - name: servico
 paths:
   /categoria:
     post:
@@ -153,6 +154,37 @@ paths:
                   mensagem:
                     type: string
                     example: Essa categoria está sendo utilizada em outros registros
+  /servico:
+    post:
+      tags:
+        - servico
+      summary: Cria novo serviço
+      operationId: criaServico
+      requestBody:
+        description: Deve ser informado o nome do serviço e o ID da categoria já registrada na base de dados, ambos obrigatórios. O nome do serviço deve ser único e não ultrapassar 75 caracteres.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: Manutenção de notebook
+                categoriaId:
+                  type: number
+                  example: 10
+      responses:
+        "201":
+          description: Novo serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Servico"
+        "400":
+          description: |-
+            - O nome do serviço é obrigatório
+            - O nome do serviço deve ter no máximo 75 caracteres
+            - A categoria é obrigatória e deve estar registrada
 
 components:
   schemas:
@@ -173,3 +205,21 @@ components:
         nome:
           type: string
           example: TI
+    Servico:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 11
+        nome:
+          type: string
+          example: Manutenção de notebook
+        categoria:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 10
+            nome:
+              type: string
+              example: TI
