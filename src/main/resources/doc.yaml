@@ -15,10 +15,15 @@ paths:
       operationId: criarCategoria
       requestBody:
         description: Deve ser informado apenas o nome da categoria, logo, o nome é obrigatório. Além disso, deve ser único e não ultrapassar 50 caracteres.
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CategoriaInput"
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: TI
       responses:
         "201":
           description: Nova categoria criada com sucesso
@@ -31,6 +36,25 @@ paths:
             - O nome da categoria é obrigatório
             - O nome da categoria deve ter no máximo 50 caracteres
             - Nome da categoria já registrado
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome da categoria é obrigatório
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome da categoria deve ter no máximo 50 caracteres
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: Nome da categoria já registrado
     get:
       tags:
         - categoria
@@ -194,14 +218,6 @@ components:
         id:
           type: number
           example: 10
-        nome:
-          type: string
-          example: TI
-    CategoriaInput:
-      required:
-        - nome
-      type: object
-      properties:
         nome:
           type: string
           example: TI
