@@ -237,6 +237,80 @@ paths:
               schema:
                 type: string
                 example: Registro não encontrado
+    put:
+      tags:
+        - servico
+      summary: Atualiza atributos do serviço registrado
+      operationId: atualizaServicoPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID do serviço atualizada
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: Deve ser informado o nome do serviço e o ID da categoria.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: Manutenção em computadores
+                categoriaId:
+                  type: number
+                  example: 10
+      responses:
+        "200":
+          description: Serviço encontrado e atualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 11
+                  nome:
+                    type: string
+                    example: Manutenção em computadores
+                  categoria:
+                    type: object
+                    $ref: "#/components/schemas/Categoria"
+        "400":
+          description: |-
+            - O nome do serviço é obrigatório
+            - O nome do serviço deve ter no máximo 75 caracteres
+            - A categoria é obrigatória e deve estar registrada
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome do serviço é obrigatório
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome do serviço deve ter no máximo 75 caracteres
+                  - type: object
+                    properties:
+                      categoriaId:
+                        type: string
+                        example: A categoria é obrigatória e deve estar registrada
+        "404":
+          description: Serviço não encontrada
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Registro não encontrado
 components:
   schemas:
     Categoria:
