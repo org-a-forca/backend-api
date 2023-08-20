@@ -344,6 +344,37 @@ paths:
             text/plain:
               schema:
                 $ref: "#/components/responses/RegistroNaoEncontrado"
+    delete:
+      tags:
+        - servico
+      summary: Remove serviço
+      operationId: removeServicoPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID do serviço removido
+          required: true
+          schema:
+            type: number
+            example: 11
+      responses:
+        "204":
+          description: Serviço encontrado e deletado
+        "404":
+          description: Serviço não encontrado
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/responses/RegistroNaoEncontrado"
+        "409":
+          description: Serviço vinculado a algum registro
+          content:
+            application/json:
+              schema:
+                properties:
+                  mensagem:
+                    type: string
+                    default: Esse serviço está sendo utilizada em outros registros
 components:
   schemas:
     Categoria:
