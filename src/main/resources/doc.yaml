@@ -95,8 +95,7 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Registro não encontrado
+                $ref: "#/components/responses/RegistroNaoEncontrado"
     put:
       tags:
         - categoria
@@ -163,8 +162,7 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Registro não encontrado
+                $ref: "#/components/responses/RegistroNaoEncontrado"
     delete:
       tags:
         - categoria
@@ -186,8 +184,7 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Registro não encontrado
+                $ref: "#/components/responses/RegistroNaoEncontrado"
         "409":
           description: Categoria vinculada a algum registro
           content:
@@ -268,13 +265,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Servico"
-        "400":
+        "404":
           description: Serviço não encontrado
           content:
             text/plain:
               schema:
-                type: string
-                example: Registro não encontrado
+                $ref: "#/components/responses/RegistroNaoEncontrado"
     put:
       tags:
         - servico
@@ -347,8 +343,7 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Registro não encontrado
+                $ref: "#/components/responses/RegistroNaoEncontrado"
 components:
   schemas:
     Categoria:
@@ -370,11 +365,8 @@ components:
           type: string
           example: Manutenção de notebook
         categoria:
-          type: object
-          properties:
-            id:
-              type: number
-              example: 10
-            nome:
-              type: string
-              example: TI
+          $ref: "#/components/schemas/Categoria"
+  responses:
+    "RegistroNaoEncontrado":
+      type: string
+      example: Registro não encontrado
