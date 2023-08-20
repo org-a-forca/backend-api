@@ -139,6 +139,25 @@ paths:
             - O nome da categoria é obrigatório
             - O nome da categoria deve ter no máximo 50 caracteres
             - Nome da categoria já registrado
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome da categoria é obrigatório
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome da categoria deve ter no máximo 50 caracteres
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: Nome da categoria já registrado
         "404":
           description: Categoria não encontrada
           content:
@@ -209,6 +228,25 @@ paths:
             - O nome do serviço é obrigatório
             - O nome do serviço deve ter no máximo 75 caracteres
             - A categoria é obrigatória e deve estar registrada
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome do serviço é obrigatório
+                  - type: object
+                    properties:
+                      nome:
+                        type: string
+                        example: O nome do serviço deve ter no máximo 75 caracteres
+                  - type: object
+                    properties:
+                      categoriaId:
+                        type: string
+                        example: A categoria é obrigatória e deve estar registrada
   /servico/{id}:
     get:
       tags:
