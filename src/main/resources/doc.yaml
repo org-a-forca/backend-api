@@ -209,7 +209,34 @@ paths:
             - O nome do serviço é obrigatório
             - O nome do serviço deve ter no máximo 75 caracteres
             - A categoria é obrigatória e deve estar registrada
-
+  /servico/{id}:
+    get:
+      tags:
+        - servico
+      summary: Obtém serviço pelo ID
+      operationId: obterServicoPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID do serviço buscado
+          required: true
+          schema:
+            type: number
+            example: 11
+      responses:
+        "200":
+          description: Serviço encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Servico"
+        "400":
+          description: Serviço não encontrado
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Registro não encontrado
 components:
   schemas:
     Categoria:
