@@ -228,18 +228,8 @@ paths:
           in: query
           schema:
             type: string
-        - name: pagNum
-          description: Índice da lista
-          in: query
-          schema:
-            type: number
-            default: 0
-        - name: pagTam
-          description: Quantidade de registro
-          in: query
-          schema:
-            type: number
-            default: 5
+        - $ref: "#/components/parameters/indiceLista"
+        - $ref: "#/components/parameters/quantidadePorPagina"
       responses:
         "200":
           description: Todos os serviços encontrados e paginados. Senão um vetor vazio.
@@ -460,3 +450,18 @@ components:
         nome:
           type: string
           default: A categoria é obrigatória e deve estar registrada
+  parameters:
+    indiceLista:
+      name: pagNum
+      description: Índice da lista
+      in: query
+      schema:
+        type: number
+        default: 0
+    quantidadePorPagina:
+      name: pagTam
+      description: Quantidade de registro
+      in: query
+      schema:
+        type: number
+        default: 5
