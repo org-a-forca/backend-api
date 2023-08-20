@@ -4,8 +4,11 @@ info:
   description: A **Força** é uma organização que busca ajudar os trabalhadores autônomos da cidade de Lavras (MG) e região a encontrar e firmar contrato com pessoas interessadas em seus serviços.
   version: 1.0.0
 tags:
-  - name: categoria
+  - name: contrato
+  - name: contratante
+  - name: trabalhador
   - name: servico
+  - name: categoria
 paths:
   /categoria:
     post:
