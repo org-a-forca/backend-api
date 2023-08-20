@@ -41,20 +41,11 @@ paths:
               schema:
                 anyOf:
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome da categoria é obrigatório
+                    $ref: "#/components/responses/CategoriaNomeObrigatorio"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome da categoria deve ter no máximo 50 caracteres
+                    $ref: "#/components/responses/CategoriaNomeTamanho"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: Nome da categoria já registrado
+                    $ref: "#/components/responses/CategoriaNomeJaRegistrado"
     get:
       tags:
         - categoria
@@ -143,20 +134,11 @@ paths:
               schema:
                 anyOf:
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome da categoria é obrigatório
+                    $ref: "#/components/responses/CategoriaNomeObrigatorio"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome da categoria deve ter no máximo 50 caracteres
+                    $ref: "#/components/responses/CategoriaNomeTamanho"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: Nome da categoria já registrado
+                    $ref: "#/components/responses/CategoriaNomeJaRegistrado"
         "404":
           description: Categoria não encontrada
           content:
@@ -230,20 +212,11 @@ paths:
               schema:
                 anyOf:
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome do serviço é obrigatório
+                    $ref: "#/components/responses/ServicoNomeObrigatorio"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome do serviço deve ter no máximo 75 caracteres
+                    $ref: "#/components/responses/ServicoNomeTamanho"
                   - type: object
-                    properties:
-                      categoriaId:
-                        type: string
-                        default: A categoria é obrigatória e deve estar registrada
+                    $ref: "#/components/responses/ServicoCategoriaObrigatoria"
   /servico/{id}:
     get:
       tags:
@@ -324,20 +297,11 @@ paths:
               schema:
                 anyOf:
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome do serviço é obrigatório
+                    $ref: "#/components/responses/ServicoNomeObrigatorio"
                   - type: object
-                    properties:
-                      nome:
-                        type: string
-                        default: O nome do serviço deve ter no máximo 75 caracteres
+                    $ref: "#/components/responses/ServicoNomeTamanho"
                   - type: object
-                    properties:
-                      categoriaId:
-                        type: string
-                        default: A categoria é obrigatória e deve estar registrada
+                    $ref: "#/components/responses/ServicoCategoriaObrigatoria"
         "404":
           description: Serviço não encontrada
           content:
@@ -401,3 +365,39 @@ components:
     "RegistroNaoEncontrado":
       type: string
       default: Registro não encontrado
+    "CategoriaNomeObrigatorio":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: O nome da categoria é obrigatório
+    "CategoriaNomeTamanho":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: O nome da categoria deve ter no máximo 50 caracteres
+    "CategoriaNomeJaRegistrado":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: Nome da categoria já registrado
+    "ServicoNomeObrigatorio":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: O nome do serviço é obrigatório
+    "ServicoNomeTamanho":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: O nome do serviço deve ter no máximo 75 caracteres
+    "ServicoCategoriaObrigatoria":
+      type: object
+      properties:
+        nome:
+          type: string
+          default: A categoria é obrigatória e deve estar registrada
