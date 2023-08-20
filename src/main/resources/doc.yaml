@@ -44,17 +44,17 @@ paths:
                     properties:
                       nome:
                         type: string
-                        example: O nome da categoria é obrigatório
+                        default: O nome da categoria é obrigatório
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: O nome da categoria deve ter no máximo 50 caracteres
+                        default: O nome da categoria deve ter no máximo 50 caracteres
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: Nome da categoria já registrado
+                        default: Nome da categoria já registrado
     get:
       tags:
         - categoria
@@ -146,17 +146,17 @@ paths:
                     properties:
                       nome:
                         type: string
-                        example: O nome da categoria é obrigatório
+                        default: O nome da categoria é obrigatório
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: O nome da categoria deve ter no máximo 50 caracteres
+                        default: O nome da categoria deve ter no máximo 50 caracteres
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: Nome da categoria já registrado
+                        default: Nome da categoria já registrado
         "404":
           description: Categoria não encontrada
           content:
@@ -193,7 +193,7 @@ paths:
                 properties:
                   mensagem:
                     type: string
-                    example: Essa categoria está sendo utilizada em outros registros
+                    default: Essa categoria está sendo utilizada em outros registros
   /servico:
     post:
       tags:
@@ -233,17 +233,17 @@ paths:
                     properties:
                       nome:
                         type: string
-                        example: O nome do serviço é obrigatório
+                        default: O nome do serviço é obrigatório
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: O nome do serviço deve ter no máximo 75 caracteres
+                        default: O nome do serviço deve ter no máximo 75 caracteres
                   - type: object
                     properties:
                       categoriaId:
                         type: string
-                        example: A categoria é obrigatória e deve estar registrada
+                        default: A categoria é obrigatória e deve estar registrada
   /servico/{id}:
     get:
       tags:
@@ -327,17 +327,17 @@ paths:
                     properties:
                       nome:
                         type: string
-                        example: O nome do serviço é obrigatório
+                        default: O nome do serviço é obrigatório
                   - type: object
                     properties:
                       nome:
                         type: string
-                        example: O nome do serviço deve ter no máximo 75 caracteres
+                        default: O nome do serviço deve ter no máximo 75 caracteres
                   - type: object
                     properties:
                       categoriaId:
                         type: string
-                        example: A categoria é obrigatória e deve estar registrada
+                        default: A categoria é obrigatória e deve estar registrada
         "404":
           description: Serviço não encontrada
           content:
@@ -400,4 +400,4 @@ components:
   responses:
     "RegistroNaoEncontrado":
       type: string
-      example: Registro não encontrado
+      default: Registro não encontrado
