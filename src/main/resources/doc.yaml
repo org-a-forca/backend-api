@@ -217,6 +217,53 @@ paths:
                     $ref: "#/components/responses/ServicoNomeTamanho"
                   - type: object
                     $ref: "#/components/responses/ServicoCategoriaObrigatoria"
+    get:
+      tags:
+        - servico
+      summary: Obtém uma lista paginada dos serviços
+      operationId: obterTodosServicos
+      parameters:
+        - name: nome
+          description: Nome do serviço
+          in: query
+          schema:
+            type: string
+        - name: pagNum
+          description: Índice da lista
+          in: query
+          schema:
+            type: number
+            default: 0
+        - name: pagTam
+          description: Quantidade de registro
+          in: query
+          schema:
+            type: number
+            default: 5
+      responses:
+        "200":
+          description: Todos os serviços encontrados e paginados. Senão um vetor vazio.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      servicos:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/ServicoResumido"
+                      qtdeServicos:
+                        type: number
+                        example: 2
+                      pagNum:
+                        type: number
+                        example: 0
+                      pagTam:
+                        type: number
+                        example: 5
+                  - type: array
+                    example: []
   /servico/{id}:
     get:
       tags:
@@ -361,6 +408,18 @@ components:
           example: Manutenção de notebook
         categoria:
           $ref: "#/components/schemas/Categoria"
+    ServicoResumido:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 11
+        nome:
+          type: string
+          example: Manutenção de notebook
+        categoriaNome:
+          type: string
+          example: TI
   responses:
     "RegistroNaoEncontrado":
       type: string
