@@ -379,6 +379,90 @@ paths:
                   mensagem:
                     type: string
                     default: Esse serviço está sendo utilizada em outros registros
+  /trabalhador:
+    post:
+      tags:
+        - trabalhador
+      summary: Cria novo trabalhador
+      operationId: criaTrabalhador
+      requestBody:
+        description: Os atributos obrigatórios são nome, telefone e IDs dos serviços prestados
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: José Alves Barbosa
+                telefone:
+                  type: string
+                  example: 31987456321
+                servicosIds:
+                  type: array
+                  items:
+                    type: integer
+                    example: 11
+              required:
+                - nome
+                - telefone
+                - servicosIds
+      responses:
+        "201":
+          description: Novo trabalhador criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 21
+                  nome:
+                    type: string
+                    example: José Alves Barbosa
+                  telefone:
+                    type: string
+                    example: 31987456321
+                  endereco:
+                    type: string
+                    example: null
+                  email:
+                    type: string
+                    example: null
+                  nivel:
+                    type: number
+                    default: 1
+                  dataCadastro:
+                    type: string
+                    example: "2023-04-07"
+                  dataUltimoContrato:
+                    type: string
+                    example: null
+                  referencias:
+                    type: string
+                    example: null
+                  restricoes:
+                    type: string
+                    example: null
+                  observacoes:
+                    type: string
+                    example: null
+                  servicos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Servico"
+        "400":
+          description: |-
+            - O nome do trabalhador é obrigatório
+            - O nome do trabalhador deve ter no máximo 100 caracteres
+            - O telefone do trabalhador é obrigatório
+            - O número do telefone do trabalhador deve ter somente os 11 dígitos
+            - O endereço do trabalhador deve ter no máximo 200 caracteres
+            - O email do trabalhador deve ter no máximo 100 caracteres
+            - O email do trabalhador deve ser de formato válido
+            - O serviço é obrigatório e deve estar registrado
 components:
   schemas:
     Categoria:
