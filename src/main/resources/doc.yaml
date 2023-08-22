@@ -35,20 +35,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Categoria"
         "400":
-          description: |-
-            - O nome da categoria é obrigatório
-            - O nome da categoria deve ter no máximo 50 caracteres
-            - Nome da categoria já registrado
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeObrigatorio"
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeTamanho"
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeJaRegistrado"
+          $ref: "#/components/responses/CategoriaRequisitos"
     get:
       tags:
         - categoria
@@ -128,20 +115,7 @@ paths:
                     type: string
                     example: "IT"
         "400":
-          description: |-
-            - O nome da categoria é obrigatório
-            - O nome da categoria deve ter no máximo 50 caracteres
-            - Nome da categoria já registrado
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeObrigatorio"
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeTamanho"
-                  - type: object
-                    $ref: "#/components/responses/CategoriaNomeJaRegistrado"
+          $ref: "#/components/responses/CategoriaRequisitos"
         "404":
           description: Categoria não encontrada
           content:
@@ -501,6 +475,18 @@ components:
     RegistroNaoEncontrado:
       type: string
       default: Registro não encontrado
+    CategoriaRequisitos:
+      description: |-
+        - O nome da categoria é obrigatório
+        - O nome da categoria deve ter no máximo 50 caracteres
+        - Nome da categoria já registrado
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: "#/components/responses/CategoriaNomeObrigatorio"
+              - $ref: "#/components/responses/CategoriaNomeTamanho"
+              - $ref: "#/components/responses/CategoriaNomeJaRegistrado"
     CategoriaNomeObrigatorio:
       type: object
       properties:
