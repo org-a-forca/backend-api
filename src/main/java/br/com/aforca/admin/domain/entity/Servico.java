@@ -24,7 +24,7 @@ public class Servico {
   @Setter
   private String nome;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
   @Getter
   @Setter
