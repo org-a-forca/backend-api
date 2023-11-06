@@ -1,5 +1,6 @@
 package br.com.aforca.admin.api.controller;
 
+import br.com.aforca.admin.api.exception.CategoriaJaRegistradaException;
 import br.com.aforca.admin.api.exception.NomeJaRegistradoException;
 import br.com.aforca.admin.api.model.NovoServicoDto;
 import br.com.aforca.admin.api.model.ServicoResumoDto;
@@ -31,6 +32,11 @@ public class ServicoController {
     } catch (NomeJaRegistradoException ex) {
       Map<String, Object> corpoDaResposta = new HashMap<>();
       corpoDaResposta.put("nome", ex.getMessage());
+
+      return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
+    } catch (CategoriaJaRegistradaException ex) {
+      Map<String, Object> corpoDaResposta = new HashMap<>();
+      corpoDaResposta.put("categoria", ex.getMessage());
 
       return new ResponseEntity<>(corpoDaResposta, HttpStatus.BAD_REQUEST);
     }
